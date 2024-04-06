@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7A92BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift */; };
-		332EE7AC2BC1935B00F93DB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7AB2BC1935B00F93DB8 /* ContentView.swift */; };
 		332EE7AE2BC1935E00F93DB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 332EE7AD2BC1935E00F93DB8 /* Assets.xcassets */; };
 		332EE7B12BC1935E00F93DB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 332EE7B02BC1935E00F93DB8 /* Preview Assets.xcassets */; };
 		332EE7BB2BC1935E00F93DB8 /* Stock_Profile_ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7BA2BC1935E00F93DB8 /* Stock_Profile_ManagerTests.swift */; };
 		332EE7C52BC1935E00F93DB8 /* Stock_Profile_ManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7C42BC1935E00F93DB8 /* Stock_Profile_ManagerUITests.swift */; };
 		332EE7C72BC1935E00F93DB8 /* Stock_Profile_ManagerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7C62BC1935E00F93DB8 /* Stock_Profile_ManagerUITestsLaunchTests.swift */; };
+		332EE7D52BC1939200F93DB8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7D42BC1939200F93DB8 /* SplashView.swift */; };
+		332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7D62BC193AC00F93DB8 /* HomepageView.swift */; };
+		332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7AB2BC1935B00F93DB8 /* ContentView.swift */; };
+		332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */; };
+		332EE7E22BC1CA1300F93DB8 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E12BC1CA1300F93DB8 /* Portfolio.swift */; };
+		332EE7E42BC1CA3600F93DB8 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E32BC1CA3600F93DB8 /* Favorite.swift */; };
+		332EE7E62BC1CA4D00F93DB8 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,12 @@
 		332EE7C02BC1935E00F93DB8 /* Stock Profile ManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stock Profile ManagerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		332EE7C42BC1935E00F93DB8 /* Stock_Profile_ManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_Profile_ManagerUITests.swift; sourceTree = "<group>"; };
 		332EE7C62BC1935E00F93DB8 /* Stock_Profile_ManagerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_Profile_ManagerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		332EE7D42BC1939200F93DB8 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		332EE7D62BC193AC00F93DB8 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
+		332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		332EE7E12BC1CA1300F93DB8 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
+		332EE7E32BC1CA3600F93DB8 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +106,15 @@
 		332EE7A82BC1935B00F93DB8 /* Stock Profile Manager */ = {
 			isa = PBXGroup;
 			children = (
-				332EE7A92BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift */,
+				332EE7E72BC1CA8B00F93DB8 /* Services */,
+				332EE7E02BC1C9F900F93DB8 /* Models */,
 				332EE7AB2BC1935B00F93DB8 /* ContentView.swift */,
+				332EE7D42BC1939200F93DB8 /* SplashView.swift */,
+				332EE7D62BC193AC00F93DB8 /* HomepageView.swift */,
+				332EE7A92BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift */,
 				332EE7AD2BC1935E00F93DB8 /* Assets.xcassets */,
 				332EE7AF2BC1935E00F93DB8 /* Preview Content */,
+				332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -125,6 +142,23 @@
 				332EE7C62BC1935E00F93DB8 /* Stock_Profile_ManagerUITestsLaunchTests.swift */,
 			);
 			path = "Stock Profile ManagerUITests";
+			sourceTree = "<group>";
+		};
+		332EE7E02BC1C9F900F93DB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				332EE7E12BC1CA1300F93DB8 /* Portfolio.swift */,
+				332EE7E32BC1CA3600F93DB8 /* Favorite.swift */,
+				332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		332EE7E72BC1CA8B00F93DB8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +291,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				332EE7AC2BC1935B00F93DB8 /* ContentView.swift in Sources */,
+				332EE7E62BC1CA4D00F93DB8 /* Wallet.swift in Sources */,
+				332EE7E22BC1CA1300F93DB8 /* Portfolio.swift in Sources */,
+				332EE7E42BC1CA3600F93DB8 /* Favorite.swift in Sources */,
 				332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */,
+				332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */,
+				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
+				332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */,
+				332EE7D52BC1939200F93DB8 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
