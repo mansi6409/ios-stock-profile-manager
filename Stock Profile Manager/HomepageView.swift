@@ -9,15 +9,17 @@ import SwiftUI
 
 struct HomepageView: View {
     @State private var searchString = ""
+    @StateObject private var detailsViewModel = DetailsViewModel()
+
 
     var body: some View {
         NavigationView {
 //                    VStack {
-                        DetailsView()
-//                    }
-                .searchable(text: $searchString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
+            DetailsView(viewModel: detailsViewModel)
+                .searchable(text: $detailsViewModel.searchString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
                 .navigationTitle("Stocks")
-                .navigationBarItems(trailing: EditButton())
+                .navigationBarItems(trailing: EditButton())//                    }
+                .searchable(text: $searchString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
                 .toolbar {
                 }
         }

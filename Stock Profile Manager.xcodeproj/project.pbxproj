@@ -20,6 +20,9 @@
 		332EE7E22BC1CA1300F93DB8 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E12BC1CA1300F93DB8 /* Portfolio.swift */; };
 		332EE7E42BC1CA3600F93DB8 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E32BC1CA3600F93DB8 /* Favorite.swift */; };
 		332EE7E62BC1CA4D00F93DB8 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */; };
+		332EE7E92BC1D81200F93DB8 /* stocksearch.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E82BC1D81200F93DB8 /* stocksearch.service.swift */; };
+		332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */; };
+		332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7ED2BC208F600F93DB8 /* Details.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,9 @@
 		332EE7E12BC1CA1300F93DB8 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		332EE7E32BC1CA3600F93DB8 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		332EE7E82BC1D81200F93DB8 /* stocksearch.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stocksearch.service.swift; sourceTree = "<group>"; };
+		332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		332EE7ED2BC208F600F93DB8 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 		332EE7A82BC1935B00F93DB8 /* Stock Profile Manager */ = {
 			isa = PBXGroup;
 			children = (
+				332EE7EA2BC2067700F93DB8 /* ViewModels */,
 				332EE7E72BC1CA8B00F93DB8 /* Services */,
 				332EE7E02BC1C9F900F93DB8 /* Models */,
 				332EE7AB2BC1935B00F93DB8 /* ContentView.swift */,
@@ -150,6 +157,7 @@
 				332EE7E12BC1CA1300F93DB8 /* Portfolio.swift */,
 				332EE7E32BC1CA3600F93DB8 /* Favorite.swift */,
 				332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */,
+				332EE7ED2BC208F600F93DB8 /* Details.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -157,8 +165,17 @@
 		332EE7E72BC1CA8B00F93DB8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				332EE7E82BC1D81200F93DB8 /* stocksearch.service.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		332EE7EA2BC2067700F93DB8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,7 +314,10 @@
 				332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */,
 				332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */,
 				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
+				332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */,
 				332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */,
+				332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */,
+				332EE7E92BC1D81200F93DB8 /* stocksearch.service.swift in Sources */,
 				332EE7D52BC1939200F93DB8 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

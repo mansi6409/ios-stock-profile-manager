@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DetailsView: View {
+    @ObservedObject var viewModel = DetailsViewModel()
+
     var body: some View {
         List{
             HStack {
@@ -27,7 +29,13 @@ struct DetailsView: View {
             .padding(.horizontal, -26)
 //            .padding(.horizontal, 0)
             .listRowBackground(Color(.systemGroupedBackground))
-        }.background(Color(.systemGroupedBackground)) 
+            Text(viewModel.stockDetail?.ticker ?? "Search for a stock")
+                .padding(.top, 10)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 10)
+
+
+        }.background(Color(.systemGroupedBackground))
     }
     
     func currentDateString() -> String {
@@ -37,6 +45,12 @@ struct DetailsView: View {
     }
 }
 
-#Preview {
-    DetailsView()
+//#Preview {
+//    DetailsView(viewModel: <#DetailsViewModel#>)
+//}
+
+struct DetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailsView(viewModel: DetailsViewModel())
+    }
 }
