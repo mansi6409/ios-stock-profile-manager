@@ -56,15 +56,15 @@ struct DetailsView: View {
                     }
                 }
                 .padding()
-//                ForEach(portfolioItems) { item in
-//                    HStack {
-//                        Text(item.symbol)
-//                        Spacer()
+                ForEach(portfolioViewModel.portfolioRecords.indices, id: \.self) { index in
+                    HStack {
+                        TextField("Symbol", text: $portfolioViewModel.portfolioRecords[index].stocksymbol)
+                        Spacer()
 //                        Text("$\(item.currentValue, specifier: "%.2f")")
 //                        Text("\(item.change > 0 ? "▲" : "▼") $\(item.change, specifier: "%.2f") (\(item.changePercentage, specifier: "%.2f")%)")
 //                            .foregroundColor(item.change > 0 ? .green : .red)
-//                    }
-//                }
+                    }
+                }
             }
             
             Section(header: Text("FAVORITES")) {

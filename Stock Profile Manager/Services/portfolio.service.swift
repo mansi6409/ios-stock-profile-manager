@@ -12,7 +12,7 @@ import Combine
 
 struct PortfolioRecord:  Decodable, Identifiable {
     let id = UUID()
-    var stockSymbol: String
+    var stocksymbol: String
     var quantity: Int
     var cost: Double
 }
@@ -36,6 +36,7 @@ class PortfolioService: ObservableObject {
     
     init() {
         fetchWalletMoney()
+        getPortfolio()
     }
     
     func fetchWalletMoney() {
@@ -81,7 +82,7 @@ class PortfolioService: ObservableObject {
                     print("JSON: \(json)")
                     let records = json.arrayValue.map { jsonRecord -> PortfolioRecord in
                         return PortfolioRecord(
-                            stockSymbol: jsonRecord["stockSymbol"].stringValue,
+                            stocksymbol: jsonRecord["stocksymbol"].stringValue,
                             quantity: jsonRecord["quantity"].intValue,
                             cost: jsonRecord["cost"].doubleValue
                         )
@@ -100,16 +101,16 @@ class PortfolioService: ObservableObject {
         AF.request(url).validate().responseDecodable(of: [PortfolioRecord].self) { response in
             switch response.result {
                 case .success(let value):
-                    let json = JSON(value)
-                    let records = json.arrayValue.map { jsonRecord -> PortfolioRecord in
-                        return PortfolioRecord(
-                            stockSymbol: jsonRecord["stockSymbol"].stringValue,
-                            quantity: jsonRecord["quantity"].intValue,
-                            cost: jsonRecord["cost"].doubleValue
-                        )
-                    }
+//                    let json = JSON(value)
+//                    let records = json.arrayValue.map { jsonRecord -> PortfolioRecord in
+//                        return PortfolioRecord(
+//                            stocksymbol: jsonRecord["stocksymbol"].stringValue,
+//                            quantity: jsonRecord["quantity"].intValue,
+//                            cost: jsonRecord["cost"].doubleValue
+//                        )
+//                    }
                     DispatchQueue.main.async {
-                        self.portfolioRecords = records
+                        self.portfolioRecords = value
                     }
                 case .failure(let error):
                     print(error)
