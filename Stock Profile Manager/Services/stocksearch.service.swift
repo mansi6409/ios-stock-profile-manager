@@ -7,14 +7,18 @@
 
 import Foundation
 import Combine
+import Alamofire
+import Kingfisher
+import SwiftyJSON
 
 class StockSearchService: ObservableObject {
-    private let baseURL = URL(string: "http://localhost:8000/api/company")!
+    private let baseURL = URL(string: "http://localhost:8000/api")!
     private var cancellables = Set<AnyCancellable>()
+    @Published var stockPriceDetails: StockPriceDetails?
+    @Published var companyInfo: Details?
     
-        // Use @Published for properties that need to be observed by the UI
-    @Published var searchResults: [Stock] = []
-    @Published var currentStockDetail: StockDetail?
+
+//    @Published var currentStockDetail: StockDetail?
     
 
 //    func searchAutocomplete(query: String) {
@@ -73,14 +77,64 @@ class StockSearchService: ObservableObject {
         return result
     }
     
-}
+    func fetchCompanyInfo(forStock stock: String) {
+        let formattedStock = stock.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)?.uppercased() ?? ""
+        let url = "\(baseURL)/company?symbol=\(formattedStock)"
+        
+        AF.request(url).validate().responseDecodable(of: Details.self) { [weak self] response in
+            print("Server Response (fetchCompanyInfo): \(response)")
 
-    // Example structs for decoding JSON
-struct Stock: Codable, Identifiable {
-    var id: String
-    var symbol: String
-    var quantity: Int
-    var cost: Double
+            switch response.result {
+                case .success(let details):
+                    DispatchQueue.main.async {
+                        self?.companyInfo = details
+                        print("Final Response (fetchCompanyInfo): \(details)")
+
+                    }
+                case .failure(let error):
+                    print("Error fetching company info: \(error)")
+            }
+        }
+    }
+    
+    func fetchStockPriceDetails(forStock stock: String) {
+        let formattedStock = stock.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)?.uppercased() ?? ""
+        let url = "\(baseURL)/latestPrice?symbol=\(formattedStock)"
+        print("url: \(url)")
+        
+//        AF.request(url).validate().responseJSON { response in
+//            print("Server Response (fetchStockPriceDetails): \(response)")
+//
+//            switch response.result {
+//                case .success(let value):
+//                    let json = JSON(value)
+//                    print("JSON: \(json)")
+//                case .failure(let error):
+//                    print("Error fetching stock price details: \(error)")
+//            }
+//        }
+        AF.request(url).validate().responseDecodable(of: StockPriceDetails.self) { response in
+            print("Server Response (fetchStockPriceDetails): \(response)")
+            
+            switch response.result {
+                case .success(let stockPriceDetails):
+                    DispatchQueue.main.async {
+                            // Update your UI or data model as necessary
+                        self.stockPriceDetails = stockPriceDetails
+                        print("Final Response (fetchStockPriceDetails): \(stockPriceDetails)")
+                    }
+                case .failure(let error):
+                    print("Error fetching stock price details: \(error)")
+            }
+        }    }
+    
+    func fetchAllData(forStock stock: String) {
+        fetchCompanyInfo(forStock: stock)
+        fetchStockPriceDetails(forStock: stock)
+    }
+    
+    
+    
 }
 
 struct StockDetail: Codable {

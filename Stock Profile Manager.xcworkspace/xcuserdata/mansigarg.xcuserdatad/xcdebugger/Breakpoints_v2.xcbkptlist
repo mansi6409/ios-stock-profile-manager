@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "4DBEEFB7-B4D8-465A-A977-4AE2A88A2A2D"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A26A2CFB-A91E-4D48-ADA8-621DA8A8B065"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/stocksearch.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "fetchCompanyInfo(forStock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A26A2CFB-A91E-4D48-ADA8-621DA8A8B065 - 1be453e664a8fef5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Stock_Profile_Manager.Details, Alamofire.AFError&gt;) -&gt; () in Stock_Profile_Manager.StockSearchService.fetchCompanyInfo(forStock: Swift.String) -&gt; ()"
+                  moduleName = "Stock Profile Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mansigarg/USC/main/Stock%20Profile%20Manager/Stock%20Profile%20Manager/Services/stocksearch.service.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89">
+               </Location>
+               <Location
+                  uuid = "A26A2CFB-A91E-4D48-ADA8-621DA8A8B065 - 25db32814add15b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Alamofire.DataResponse&lt;Stock_Profile_Manager.Details, Alamofire.AFError&gt;) -&gt; () in Stock_Profile_Manager.StockSearchService.fetchCompanyInfo(forStock: Swift.String) -&gt; ()"
+                  moduleName = "Stock Profile Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mansigarg/USC/main/Stock%20Profile%20Manager/Stock%20Profile%20Manager/Services/stocksearch.service.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF81B39A-460F-4874-8299-59778B1500E6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/stocksearch.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "fetchCompanyInfo(forStock:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "525C026F-4078-4115-975C-251B5AC16E92"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/stocksearch.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "fetchStockPriceDetails(forStock:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C45C13EB-800D-463C-AEE0-B3C6AE691C8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/portfolio.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "fetchWalletMoney()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C45C13EB-800D-463C-AEE0-B3C6AE691C8A - c614be62cbd6ea5f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.Array&lt;Stock_Profile_Manager.WalletMoney&gt;, Alamofire.AFError&gt;) -&gt; () in Stock_Profile_Manager.PortfolioService.fetchWalletMoney() -&gt; ()"
+                  moduleName = "Stock Profile Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mansigarg/USC/main/Stock%20Profile%20Manager/Stock%20Profile%20Manager/Services/portfolio.service.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48">
+               </Location>
+               <Location
+                  uuid = "C45C13EB-800D-463C-AEE0-B3C6AE691C8A - c614be62cbd6ea5f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.Array&lt;Stock_Profile_Manager.WalletMoney&gt;, Alamofire.AFError&gt;) -&gt; () in Stock_Profile_Manager.PortfolioService.fetchWalletMoney() -&gt; ()"
+                  moduleName = "Stock Profile Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mansigarg/USC/main/Stock%20Profile%20Manager/Stock%20Profile%20Manager/Services/portfolio.service.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "82154573-E3EC-42F2-B91B-9811F0A5A07E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/portfolio.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "fetchWalletMoney()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80ECA46A-797B-4393-8269-D000E3844140"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/portfolio.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "init()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC9F6F71-E692-4A7E-A553-B6EF5FFB331B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/portfolio.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "fetchWalletMoney()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E78FA84-2296-40C2-90A9-EC185AE64F52"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Profile Manager/Services/portfolio.service.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "fetchWalletMoney()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

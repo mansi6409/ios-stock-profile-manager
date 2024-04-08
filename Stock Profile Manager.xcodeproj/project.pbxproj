@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D5D0F99E23B1A800D1D2ACF /* Pods_Stock_Profile_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C190BDE46918CB0A58DE45B1 /* Pods_Stock_Profile_Manager.framework */; };
+		330817722BC373A7003D669A /* StockPriceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330817712BC373A7003D669A /* StockPriceDetails.swift */; };
+		330817742BC37894003D669A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330817732BC37894003D669A /* History.swift */; };
+		330817762BC37B71003D669A /* Peers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330817752BC37B71003D669A /* Peers.swift */; };
 		332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7A92BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift */; };
 		332EE7AE2BC1935E00F93DB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 332EE7AD2BC1935E00F93DB8 /* Assets.xcassets */; };
 		332EE7B12BC1935E00F93DB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 332EE7B02BC1935E00F93DB8 /* Preview Assets.xcassets */; };
@@ -23,6 +27,12 @@
 		332EE7E92BC1D81200F93DB8 /* stocksearch.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7E82BC1D81200F93DB8 /* stocksearch.service.swift */; };
 		332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */; };
 		332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332EE7ED2BC208F600F93DB8 /* Details.swift */; };
+		333B77E32BC3A87400592668 /* portfolio.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E22BC3A87400592668 /* portfolio.service.swift */; };
+		333B77E52BC3A88900592668 /* favorites.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E42BC3A88900592668 /* favorites.service.swift */; };
+		333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */; };
+		333B77E92BC3BEFE00592668 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E82BC3BEFE00592668 /* PortfolioView.swift */; };
+		49CF3F42320E0639BEF0161C /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */; };
+		5C35376FCB0E8AE076A36464 /* Pods_Stock_Profile_ManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1030160E14BC26A893952589 /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager-Stock Profile ManagerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		330817712BC373A7003D669A /* StockPriceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceDetails.swift; sourceTree = "<group>"; };
+		330817732BC37894003D669A /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		330817752BC37B71003D669A /* Peers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peers.swift; sourceTree = "<group>"; };
 		332EE7A62BC1935B00F93DB8 /* Stock Profile Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Profile Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		332EE7A92BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_Profile_ManagerApp.swift; sourceTree = "<group>"; };
 		332EE7AB2BC1935B00F93DB8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +76,18 @@
 		332EE7E82BC1D81200F93DB8 /* stocksearch.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stocksearch.service.swift; sourceTree = "<group>"; };
 		332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		332EE7ED2BC208F600F93DB8 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
+		333B77E22BC3A87400592668 /* portfolio.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolio.service.swift; sourceTree = "<group>"; };
+		333B77E42BC3A88900592668 /* favorites.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favorites.service.swift; sourceTree = "<group>"; };
+		333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
+		333B77E82BC3BEFE00592668 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_ManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile ManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile ManagerTests/Pods-Stock Profile ManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B47A2B87259DA42F027AC4C /* Pods-Stock Profile Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager/Pods-Stock Profile Manager.release.xcconfig"; sourceTree = "<group>"; };
+		C190BDE46918CB0A58DE45B1 /* Pods_Stock_Profile_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDAC2212D31B840AFA92C26C /* Pods-Stock Profile ManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile ManagerTests.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile ManagerTests/Pods-Stock Profile ManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+		E97AB330E6A733707F32AF87 /* Pods-Stock Profile Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager/Pods-Stock Profile Manager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D5D0F99E23B1A800D1D2ACF /* Pods_Stock_Profile_Manager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C35376FCB0E8AE076A36464 /* Pods_Stock_Profile_ManagerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,12 +111,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49CF3F42320E0639BEF0161C /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A7B329E7CF34DC1937D6570 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E97AB330E6A733707F32AF87 /* Pods-Stock Profile Manager.debug.xcconfig */,
+				7B47A2B87259DA42F027AC4C /* Pods-Stock Profile Manager.release.xcconfig */,
+				1030160E14BC26A893952589 /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.debug.xcconfig */,
+				520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */,
+				6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */,
+				DDAC2212D31B840AFA92C26C /* Pods-Stock Profile ManagerTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		332EE79D2BC1935B00F93DB8 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +138,8 @@
 				332EE7B92BC1935E00F93DB8 /* Stock Profile ManagerTests */,
 				332EE7C32BC1935E00F93DB8 /* Stock Profile ManagerUITests */,
 				332EE7A72BC1935B00F93DB8 /* Products */,
+				1A7B329E7CF34DC1937D6570 /* Pods */,
+				EF24EC73658BD3E24E42D2B7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +166,7 @@
 				332EE7AD2BC1935E00F93DB8 /* Assets.xcassets */,
 				332EE7AF2BC1935E00F93DB8 /* Preview Content */,
 				332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */,
+				333B77E82BC3BEFE00592668 /* PortfolioView.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -158,6 +203,9 @@
 				332EE7E32BC1CA3600F93DB8 /* Favorite.swift */,
 				332EE7E52BC1CA4D00F93DB8 /* Wallet.swift */,
 				332EE7ED2BC208F600F93DB8 /* Details.swift */,
+				330817712BC373A7003D669A /* StockPriceDetails.swift */,
+				330817732BC37894003D669A /* History.swift */,
+				330817752BC37B71003D669A /* Peers.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				332EE7E82BC1D81200F93DB8 /* stocksearch.service.swift */,
+				333B77E22BC3A87400592668 /* portfolio.service.swift */,
+				333B77E42BC3A88900592668 /* favorites.service.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -174,8 +224,19 @@
 			isa = PBXGroup;
 			children = (
 				332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */,
+				333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EF24EC73658BD3E24E42D2B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C190BDE46918CB0A58DE45B1 /* Pods_Stock_Profile_Manager.framework */,
+				7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */,
+				34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,9 +246,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 332EE7CA2BC1935E00F93DB8 /* Build configuration list for PBXNativeTarget "Stock Profile Manager" */;
 			buildPhases = (
+				307EA14E0B7E96E968890E1B /* [CP] Check Pods Manifest.lock */,
 				332EE7A22BC1935B00F93DB8 /* Sources */,
 				332EE7A32BC1935B00F93DB8 /* Frameworks */,
 				332EE7A42BC1935B00F93DB8 /* Resources */,
+				A8998E9215FC00E773C33850 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,6 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 332EE7CD2BC1935E00F93DB8 /* Build configuration list for PBXNativeTarget "Stock Profile ManagerTests" */;
 			buildPhases = (
+				9F03D2B20F8D9CBF9B953669 /* [CP] Check Pods Manifest.lock */,
 				332EE7B22BC1935E00F93DB8 /* Sources */,
 				332EE7B32BC1935E00F93DB8 /* Frameworks */,
 				332EE7B42BC1935E00F93DB8 /* Resources */,
@@ -220,9 +284,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 332EE7D02BC1935E00F93DB8 /* Build configuration list for PBXNativeTarget "Stock Profile ManagerUITests" */;
 			buildPhases = (
+				1B3896DE826CE4F08BFC32AD /* [CP] Check Pods Manifest.lock */,
 				332EE7BC2BC1935E00F93DB8 /* Sources */,
 				332EE7BD2BC1935E00F93DB8 /* Frameworks */,
 				332EE7BE2BC1935E00F93DB8 /* Resources */,
+				55E9CE97605787F3EEFC9F0C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -303,6 +369,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1B3896DE826CE4F08BFC32AD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Stock Profile Manager-Stock Profile ManagerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		307EA14E0B7E96E968890E1B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Stock Profile Manager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		55E9CE97605787F3EEFC9F0C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F03D2B20F8D9CBF9B953669 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Stock Profile ManagerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8998E9215FC00E773C33850 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Stock Profile Manager/Pods-Stock Profile Manager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Stock Profile Manager/Pods-Stock Profile Manager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Stock Profile Manager/Pods-Stock Profile Manager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		332EE7A22BC1935B00F93DB8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -311,12 +480,19 @@
 				332EE7E62BC1CA4D00F93DB8 /* Wallet.swift in Sources */,
 				332EE7E22BC1CA1300F93DB8 /* Portfolio.swift in Sources */,
 				332EE7E42BC1CA3600F93DB8 /* Favorite.swift in Sources */,
+				333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */,
+				330817722BC373A7003D669A /* StockPriceDetails.swift in Sources */,
+				333B77E52BC3A88900592668 /* favorites.service.swift in Sources */,
 				332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */,
+				333B77E92BC3BEFE00592668 /* PortfolioView.swift in Sources */,
 				332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */,
 				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
 				332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */,
 				332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */,
+				333B77E32BC3A87400592668 /* portfolio.service.swift in Sources */,
 				332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */,
+				330817742BC37894003D669A /* History.swift in Sources */,
+				330817762BC37B71003D669A /* Peers.swift in Sources */,
 				332EE7E92BC1D81200F93DB8 /* stocksearch.service.swift in Sources */,
 				332EE7D52BC1939200F93DB8 /* SplashView.swift in Sources */,
 			);
@@ -476,6 +652,7 @@
 		};
 		332EE7CB2BC1935E00F93DB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E97AB330E6A733707F32AF87 /* Pods-Stock Profile Manager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -483,6 +660,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Profile Manager/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -504,6 +682,7 @@
 		};
 		332EE7CC2BC1935E00F93DB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B47A2B87259DA42F027AC4C /* Pods-Stock Profile Manager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -511,6 +690,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Profile Manager/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -532,11 +712,13 @@
 		};
 		332EE7CE2BC1935E00F93DB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
@@ -551,11 +733,13 @@
 		};
 		332EE7CF2BC1935E00F93DB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDAC2212D31B840AFA92C26C /* Pods-Stock Profile ManagerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
@@ -570,10 +754,12 @@
 		};
 		332EE7D12BC1935E00F93DB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1030160E14BC26A893952589 /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mmgg.Stock-Profile-ManagerUITests";
@@ -587,10 +773,12 @@
 		};
 		332EE7D22BC1935E00F93DB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mmgg.Stock-Profile-ManagerUITests";
