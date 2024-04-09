@@ -11,7 +11,10 @@ import Combine
 class PortfolioViewModel: ObservableObject {
         // MARK: - Properties
     @Published var walletMoney: Double = 0
-    @Published var portfolioRecords: [PortfolioRecord] = []
+    @Published var portfolioRecordsData: [PortfolioRecord] = []
+    @Published var netWorth: Double = 0
+    
+        // MARK: - Private Properties
     
     private let service = PortfolioService()
     private var cancellables: Set<AnyCancellable> = []
@@ -27,8 +30,12 @@ class PortfolioViewModel: ObservableObject {
             .assign(to: \.walletMoney, on: self)
             .store(in: &cancellables)
         
-        service.$portfolioRecords
-            .assign(to: \.portfolioRecords, on: self)
+        service.$portfolioRecordsData
+            .assign(to: \.portfolioRecordsData, on: self)
+            .store(in: &cancellables)
+        
+        service.$netWorth
+            .assign(to: \.netWorth, on: self)
             .store(in: &cancellables)
     }
     
@@ -41,7 +48,7 @@ class PortfolioViewModel: ObservableObject {
         service.updateWalletMoney(amount: amount)
     }
     
-    func addPortfolioRecord(symbol: String, quantity: Int, price: Double) {
+    func addPortfolioRecord(symbol: String, quantity: Double, price: Double) {
         service.addPortfolioRecord(symbol: symbol, quantity: quantity, price: price)
     }
     

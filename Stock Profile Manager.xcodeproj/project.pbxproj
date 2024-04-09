@@ -31,6 +31,7 @@
 		333B77E52BC3A88900592668 /* favorites.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E42BC3A88900592668 /* favorites.service.swift */; };
 		333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */; };
 		333B77E92BC3BEFE00592668 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E82BC3BEFE00592668 /* PortfolioView.swift */; };
+		333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77EA2BC5BED500592668 /* StockDataView.swift */; };
 		49CF3F42320E0639BEF0161C /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */; };
 		5C35376FCB0E8AE076A36464 /* Pods_Stock_Profile_ManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		333B77E42BC3A88900592668 /* favorites.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favorites.service.swift; sourceTree = "<group>"; };
 		333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		333B77E82BC3BEFE00592668 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		333B77EA2BC5BED500592668 /* StockDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataView.swift; sourceTree = "<group>"; };
 		34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_ManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile ManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile ManagerTests/Pods-Stock Profile ManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				332EE7AF2BC1935E00F93DB8 /* Preview Content */,
 				332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */,
 				333B77E82BC3BEFE00592668 /* PortfolioView.swift */,
+				333B77EA2BC5BED500592668 /* StockDataView.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */,
 				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
 				332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */,
+				333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */,
 				332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */,
 				333B77E32BC3A87400592668 /* portfolio.service.swift in Sources */,
 				332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */,
