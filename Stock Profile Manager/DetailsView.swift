@@ -30,10 +30,10 @@ struct DetailsView: View {
             .padding(.horizontal, -26)
                 //            .padding(.horizontal, 0)
             .listRowBackground(Color(.systemGroupedBackground))
-            Text("\(viewModel.stockPriceDetails?.c ?? 0.0)")
-                .padding(.top, 10)
-                .padding(.horizontal, 10)
-                .padding(.bottom, 10)
+//            Text("\(viewModel.stockPriceDetails?.c ?? 0.0)")
+//                .padding(.top, 10)
+//                .padding(.horizontal, 10)
+//                .padding(.bottom, 10)
             Section(header: Text("PORTFOLIO")) {
                 HStack {
                     VStack(alignment: .leading) {
