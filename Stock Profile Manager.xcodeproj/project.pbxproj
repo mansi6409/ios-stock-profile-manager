@@ -30,8 +30,10 @@
 		333B77E32BC3A87400592668 /* portfolio.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E22BC3A87400592668 /* portfolio.service.swift */; };
 		333B77E52BC3A88900592668 /* favorites.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E42BC3A88900592668 /* favorites.service.swift */; };
 		333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */; };
-		333B77E92BC3BEFE00592668 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E82BC3BEFE00592668 /* PortfolioView.swift */; };
 		333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77EA2BC5BED500592668 /* StockDataView.swift */; };
+		33570CE42BC66DDA00AFCBF8 /* AutocompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */; };
+		33570CE62BC66FED00AFCBF8 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */; };
+		33570CE82BC8636A00AFCBF8 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */; };
 		49CF3F42320E0639BEF0161C /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */; };
 		5C35376FCB0E8AE076A36464 /* Pods_Stock_Profile_ManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */; };
 /* End PBXBuildFile section */
@@ -80,8 +82,10 @@
 		333B77E22BC3A87400592668 /* portfolio.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolio.service.swift; sourceTree = "<group>"; };
 		333B77E42BC3A88900592668 /* favorites.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favorites.service.swift; sourceTree = "<group>"; };
 		333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
-		333B77E82BC3BEFE00592668 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		333B77EA2BC5BED500592668 /* StockDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataView.swift; sourceTree = "<group>"; };
+		33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteViewModel.swift; sourceTree = "<group>"; };
+		33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteView.swift; sourceTree = "<group>"; };
+		33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_ManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile ManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile ManagerTests/Pods-Stock Profile ManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,8 +172,8 @@
 				332EE7AD2BC1935E00F93DB8 /* Assets.xcassets */,
 				332EE7AF2BC1935E00F93DB8 /* Preview Content */,
 				332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */,
-				333B77E82BC3BEFE00592668 /* PortfolioView.swift */,
 				333B77EA2BC5BED500592668 /* StockDataView.swift */,
+				33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -228,6 +232,8 @@
 			children = (
 				332EE7EB2BC206AA00F93DB8 /* DetailsViewModel.swift */,
 				333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */,
+				33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */,
+				33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -486,12 +492,14 @@
 				333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */,
 				330817722BC373A7003D669A /* StockPriceDetails.swift in Sources */,
 				333B77E52BC3A88900592668 /* favorites.service.swift in Sources */,
+				33570CE82BC8636A00AFCBF8 /* FavoriteViewModel.swift in Sources */,
 				332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */,
-				333B77E92BC3BEFE00592668 /* PortfolioView.swift in Sources */,
+				33570CE62BC66FED00AFCBF8 /* AutocompleteView.swift in Sources */,
 				332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */,
 				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
 				332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */,
 				333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */,
+				33570CE42BC66DDA00AFCBF8 /* AutocompleteViewModel.swift in Sources */,
 				332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */,
 				333B77E32BC3A87400592668 /* portfolio.service.swift in Sources */,
 				332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */,

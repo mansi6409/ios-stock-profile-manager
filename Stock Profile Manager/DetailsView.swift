@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailsView: View {
     @ObservedObject var viewModel = DetailsViewModel()
     @ObservedObject private var portfolioViewModel = PortfolioViewModel()
+    @ObservedObject private var favoritesViewModel = FavoritesViewModel()
     
     var body: some View {
         List{
@@ -89,20 +90,38 @@ struct DetailsView: View {
             }
             
             Section(header: Text("FAVORITES")) {
-                    //                ForEach(favoriteItems) { item in
-                    //                    HStack {
-                    //                        VStack(alignment: .leading) {
-                    //                            Text(item.name)
-                    //                            Text(item.symbol)
-                    //                                .font(.subheadline)
-                    //                                .foregroundColor(.gray)
-                    //                        }
-                    //                        Spacer()
-                    //                        Text("$\(item.currentPrice, specifier: "%.2f")")
-                    //                        Text("\(item.change > 0 ? "▲" : "▼") $\(item.change, specifier: "%.2f") (\(item.changePercentage, specifier: "%.2f")%)")
-                    //                            .foregroundColor(item.change > 0 ? .green : .red)
-                    //                    }
-                    //                }
+                ForEach(favoritesViewModel.favoritesEntries.indices, id: \.self) { index in
+                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol)) {
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("\(favoritesViewModel.favoritesEntries[index].symbol)")
+                                    .bold()
+                                    .font(.system(size: 20))
+                                Text("\(favoritesViewModel.favoritesEntries[index].companyName ?? "")")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 14))
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing){
+                                Text("$\(favoritesViewModel.favoritesEntries[index].stockPrice ?? 0.00, specifier: "%.2f")")
+                                    .bold()
+                                    .font(.system(size: 16))
+                                HStack(spacing: 2) {
+                                    if let change = favoritesViewModel.favoritesEntries[index].change, change != 0 {
+                                        Image(systemName: change > 0 ? "arrow.up.forward" : "arrow.down.forward")
+                                            .foregroundColor(change > 0 ? .green : .red)
+                                            .padding(.trailing, 6)
+                                    }
+                                    Text("$\(favoritesViewModel.favoritesEntries[index].change ?? 0, specifier: "%.2f") (\(favoritesViewModel.favoritesEntries[index].changePercentage ?? 0, specifier: "%.2f")%)")
+                                        .foregroundColor(favoritesViewModel.favoritesEntries[index].change == 0 ? .black : (favoritesViewModel.favoritesEntries[index].change ?? 0 > 0 ? .green : .red))
+                                }
+                                .font(.system(size: 16))}
+                        }
+                        
+                            //                    RightAlignedDivider()
+                    }
+                }
             }
             
             
