@@ -19,6 +19,8 @@ class Details: Decodable, Identifiable {
         var ipo: String?
         var estimatedCurrency: String?
         var weburl: String?
+        var finnhubIndustry: String?
+    var peers: [String]?
         
         enum CodingKeys: String, CodingKey {
             case ticker = "ticker"
@@ -29,6 +31,8 @@ class Details: Decodable, Identifiable {
             case ipo = "ipo"
             case estimatedCurrency = "estimatedCurrency"/* = "estimated_currency" */ // Example of mapping a JSON key to a different property name
             case weburl = "weburl"
+            case finnhubIndustry = "finnhubIndustry"
+            case peers = "peers"
                 // Add other mappings as necessary
         }
 //    }
@@ -42,6 +46,8 @@ class Details: Decodable, Identifiable {
         ipo = try container.decodeIfPresent(String.self, forKey: .ipo)
         estimatedCurrency = try container.decodeIfPresent(String.self, forKey: .estimatedCurrency)
         weburl = try container.decodeIfPresent(String.self, forKey: .weburl)
+        finnhubIndustry = try container.decodeIfPresent(String.self, forKey: .finnhubIndustry)
+        peers = try container.decodeIfPresent([String].self, forKey: .peers)
     }
     
     init() {
@@ -54,6 +60,8 @@ class Details: Decodable, Identifiable {
         self.ipo = ""
         self.estimatedCurrency = ""
         self.weburl = ""
+        self.finnhubIndustry = ""
+        self.peers = []
     }
 
 }

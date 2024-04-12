@@ -36,6 +36,7 @@ struct AutocompleteView: View {
         NavigationLink(destination: StockDataView( symbol: result.displaySymbol)) {
             Text("\(result.displaySymbol) - \(result.description)")
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

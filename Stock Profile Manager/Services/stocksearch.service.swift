@@ -23,6 +23,7 @@ class StockSearchService: ObservableObject {
     @Published var stockPriceDetails: StockPriceDetails?
     @Published var companyInfo: Details?
     @Published var searchResults: [AutocompleteData] = []
+    @Published var isLoading: Bool = false
     
     
     
@@ -120,7 +121,7 @@ class StockSearchService: ObservableObject {
         }
     }
     
-    func fetchCompanyInfo(forStock stock: String) {
+    func fetchCompanyInfo(forStock stock: String, completion: @escaping () -> Void) {
         let formattedStock = stock.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)?.uppercased() ?? ""
         let url = "\(baseURL)/company?symbol=\(formattedStock)"
         
@@ -129,18 +130,25 @@ class StockSearchService: ObservableObject {
             
             switch response.result {
                 case .success(let details):
-                    DispatchQueue.main.async {
-                        self?.companyInfo = details
-                        print("Final Response (fetchCompanyInfo): \(details)")
-                        
+                    self?.fetchPeers(forStock: formattedStock) { peers in
+                        DispatchQueue.main.async {
+                            var detailsWithPeers = details
+                            detailsWithPeers.peers = peers
+                            self?.companyInfo = detailsWithPeers
+                            completion()
+
+                        }
                     }
+                    
                 case .failure(let error):
-                    print("Error fetching company info: \(error)")
+                    print("Error fetching company info: \(error)")                    
+                    completion()
+
             }
         }
     }
     
-    func fetchStockPriceDetails(forStock stock: String) {
+    func fetchStockPriceDetails(forStock stock: String, completion: @escaping () -> Void) {
         let formattedStock = stock.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)?.uppercased() ?? ""
         let url = "\(baseURL)/latestPrice?symbol=\(formattedStock)"
         print("url: \(url)")
@@ -165,16 +173,65 @@ class StockSearchService: ObservableObject {
                             // Update your UI or data model as necessary
                         self.stockPriceDetails = stockPriceDetails
                         print("Final Response (fetchStockPriceDetails): \(stockPriceDetails)")
+                        completion()
                     }
                 case .failure(let error):
+                    completion()
                     print("Error fetching stock price details: \(error)")
             }
-        }    }
+        }
+    }
+    
+    func fetchPeers(forStock stock: String, completion: @escaping ([String]) -> Void) {
+        let formattedStock = stock.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)?.uppercased() ?? ""
+        let url = "\(baseURL)/peers?symbol=\(formattedStock)"
+        
+        AF.request(url).validate().responseDecodable(of: [String].self) { response in
+            switch response.result {
+                case .success(let peers):
+                    let uniquePeers = Set(peers)
+                    let filteredPeers = Array(uniquePeers.filter { !$0.contains(".") })
+                    print("Filtered Peers: \(filteredPeers)")
+                    completion(filteredPeers)
+                    
+                case .failure(let error):
+                    print("Error fetching peers: \(error)")
+                    completion([])
+            }
+        }
+    }
     
     func fetchAllData(forStock stock: String) {
-        fetchCompanyInfo(forStock: stock)
-        fetchStockPriceDetails(forStock: stock)
+        self.isLoading = true
+        let minimumDisplayTime = DispatchTime.now() + 0.5 // 500 ms
+
+        let dispatchGroup = DispatchGroup()
+        
+        let complete = {
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        fetchCompanyInfo(forStock: stock, completion: complete)
+        
+        dispatchGroup.enter()
+        fetchStockPriceDetails(forStock: stock, completion: complete)
+        
+        dispatchGroup.enter()
+//        fetchPeers(forStock: stock) { peers in
+//            DispatchQueue.main.async {
+//                self.companyInfo?.peers = peers
+//                complete()
+//            }
+//        }
+        
+        dispatchGroup.notify(queue: .main) {
+            DispatchQueue.main.asyncAfter(deadline: minimumDisplayTime) {
+                self.isLoading = false
+            }
+        }
     }
+
     
     
     

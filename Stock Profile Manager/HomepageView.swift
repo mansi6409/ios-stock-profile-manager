@@ -23,6 +23,7 @@ struct HomepageView: View {
                         .navigationBarItems(trailing: EditButton())
                 } else {
                     AutocompleteView(searchText: $searchString, viewModel: autocompleteViewModel)
+                        .navigationBarTitleDisplayMode(.inline)
                 }
             }
             .searchable(text: $searchString, prompt: "Search for stocks")
@@ -32,6 +33,7 @@ struct HomepageView: View {
             
         }
         .padding(0.0)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

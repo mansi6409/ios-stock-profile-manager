@@ -11,9 +11,11 @@ import Combine
 
 class DetailsViewModel: ObservableObject {
     @Published var searchString: String = ""
-    @Published var stockDetail: Details?
+//    @Published var stockDetail: Details?
     @Published var companyInfo: Details?
     @Published var stockPriceDetails: StockPriceDetails?
+    @Published var isLoading: Bool?
+
     private var cancellables = Set<AnyCancellable>()
     private let stockSearchService = StockSearchService()
     

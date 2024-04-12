@@ -89,6 +89,7 @@ struct DetailsView: View {
                 }
             }
             
+            
             Section(header: Text("FAVORITES")) {
                 ForEach(favoritesViewModel.favoritesEntries.indices, id: \.self) { index in
                     NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol)) {
