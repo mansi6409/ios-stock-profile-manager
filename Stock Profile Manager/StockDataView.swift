@@ -111,7 +111,11 @@ struct StockDataView: View {
                                             .cornerRadius(20)
                                     }
                                     .sheet(isPresented: $showingTradeSheet) {
-                                        TradeSheetView() // Pass the required parameters to your trade sheet view
+                                        TradeSheetView(
+                                            availableFunds: portfolioViewModel.walletMoney ,
+                                            companyName:(viewModel.companyInfo?.name)!,
+                                            pricePerShare: (viewModel.stockPriceDetails?.c)!
+                                        ) // Pass the required parameters to your trade sheet view
                                     }
                                 }
                             } else {
@@ -120,16 +124,23 @@ struct StockDataView: View {
                                         Text("Portfolio")
                                             .bold()
                                             .font(.title)
-                                        Text("You have 0 shares of \(viewModel.companyInfo?.ticker).")
+                                        Text("You have 0 shares of \(viewModel.companyInfo?.ticker ?? "").")
                                         Text("Start trading!")
                                     }
                                     Button(action: {
+                                        showingTradeSheet = true
                                     }) {
                                         Text("Trade")
                                             .foregroundColor(.white)
                                             .padding()
                                             .background(Color.green)
                                             .cornerRadius(20)
+                                    }.sheet(isPresented: $showingTradeSheet) {
+                                        TradeSheetView(
+                                            availableFunds: portfolioViewModel.walletMoney ,
+                                            companyName:(viewModel.companyInfo?.name)!,
+                                            pricePerShare: (viewModel.stockPriceDetails?.c)!
+                                        ) // Pass the required parameters to your trade sheet view
                                     }
                                     
                                 }

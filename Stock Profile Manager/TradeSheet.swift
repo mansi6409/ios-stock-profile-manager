@@ -3,8 +3,17 @@ import SwiftUI
 struct TradeSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var numberOfShares: String = ""
-    @State private var availableFunds: Double = 22260.53 // Replace with actual funds value
-    let pricePerShare: Double = 171.09 // Replace with actual price per share value
+    @State  var availableFunds: Double// Replace with actual funds value
+    //var availableFunds: Double // This will be passed when initiating the sheet
+    @State  var companyName: String // The company name to trade
+    @State  var pricePerShare: Double // The price per share
+    var calculatedTotal: Double {
+        if let numberOfSharesDouble = Double(numberOfShares) {
+            return numberOfSharesDouble * pricePerShare
+        } else {
+            return 0
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -47,7 +56,7 @@ struct TradeSheetView: View {
                             .font(.system(size: 32)) // Adjust font size
                             .padding(.top, 2) // Slight adjustment to align with the text field
                         
-                        Text("× $\(pricePerShare, specifier: "%.2f")/share = $\(Double(numberOfShares) ?? 0 * pricePerShare, specifier: "%.2f")")
+                        Text("× $\(pricePerShare, specifier: "%.2f")/share = $\(calculatedTotal, specifier: "%.2f")")
                             .font(.system(size: 16)) // Matching font size with "Shares" text
                             .padding(.top, 4) // Adjust padding to ensure proper vertical spacing
                     
@@ -94,6 +103,6 @@ struct FilledButtonStyle: ButtonStyle {
 
 struct TradeSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        TradeSheetView()
+        TradeSheetView(availableFunds: 0, companyName: "", pricePerShare: 0)
     }
 }
