@@ -23,6 +23,8 @@ class StockSearchService: ObservableObject {
     @Published var stockPriceDetails: StockPriceDetails?
     @Published var companyInfo: Details?
     @Published var searchResults: [AutocompleteData] = []
+    @Published var news: [NewsItem] = []
+
     @Published var isLoading: Bool = false
     
     
@@ -69,7 +71,7 @@ class StockSearchService: ObservableObject {
                     throw URLError(.badServerResponse)  // Or a custom error
                 }
                 if let jsonStr = String(data: data, encoding: .utf8) {
-                    print("Received JSON: \(jsonStr)")
+//                    print("Received JSON: \(jsonStr)")
                 }
                 return data
             }
@@ -165,14 +167,14 @@ class StockSearchService: ObservableObject {
             //            }
             //        }
         AF.request(url).validate().responseDecodable(of: StockPriceDetails.self) { response in
-            print("Server Response (fetchStockPriceDetails): \(response)")
+//            print("Server Response (fetchStockPriceDetails): \(response)")
             
             switch response.result {
                 case .success(let stockPriceDetails):
                     DispatchQueue.main.async {
                             // Update your UI or data model as necessary
                         self.stockPriceDetails = stockPriceDetails
-                        print("Final Response (fetchStockPriceDetails): \(stockPriceDetails)")
+//                        print("Final Response (fetchStockPriceDetails): \(stockPriceDetails)")
                         completion()
                     }
                 case .failure(let error):
@@ -191,12 +193,43 @@ class StockSearchService: ObservableObject {
                 case .success(let peers):
                     let uniquePeers = Set(peers)
                     let filteredPeers = Array(uniquePeers.filter { !$0.contains(".") })
-                    print("Filtered Peers: \(filteredPeers)")
+//                    print("Filtered Peers: \(filteredPeers)")
                     completion(filteredPeers)
                     
                 case .failure(let error):
                     print("Error fetching peers: \(error)")
                     completion([])
+            }
+        }
+    }
+    
+    func fetchNews(forStock stockSymbol: String, completion: @escaping () -> Void) {
+        let today = Date()
+        let sixMonthsAgo = Calendar.current.date(byAdding: .month, value: -6, to: today)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let todayString = dateFormatter.string(from: today)
+        let sixMonthsAgoString = dateFormatter.string(from: sixMonthsAgo)
+        let url = URL(string: "\(baseURL)/news?symbol=\(stockSymbol)&fromDate=\(sixMonthsAgoString)&toDate=\(todayString)")!
+        AF.request(url).validate().responseDecodable(of: [NewsItem].self) { response in
+            switch response.result {
+                case .success(let newsItems):
+                    let filteredNews = newsItems.filter { 
+                            // Check if each property is non-nil and not empty
+                        $0.headline?.isEmpty == false && 
+                        $0.summary?.isEmpty == false &&
+                        $0.image?.isEmpty == false && 
+                        $0.url?.isEmpty == false && 
+                        $0.source?.isEmpty == false
+                    }.prefix(20)
+                    self.news = Array(filteredNews)
+                    
+                    completion()
+                    
+                case .failure(let error):
+                    print("Error fetching news: \(error.localizedDescription)")
+                    
+                    completion()
             }
         }
     }
@@ -218,12 +251,7 @@ class StockSearchService: ObservableObject {
         fetchStockPriceDetails(forStock: stock, completion: complete)
         
         dispatchGroup.enter()
-//        fetchPeers(forStock: stock) { peers in
-//            DispatchQueue.main.async {
-//                self.companyInfo?.peers = peers
-//                complete()
-//            }
-//        }
+        fetchNews(forStock: stock, completion: complete)
         
         dispatchGroup.notify(queue: .main) {
             DispatchQueue.main.asyncAfter(deadline: minimumDisplayTime) {

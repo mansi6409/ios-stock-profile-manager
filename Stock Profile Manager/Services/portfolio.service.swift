@@ -51,9 +51,9 @@ class PortfolioService: ObservableObject {
     
     func fetchWalletMoney() {
         let url = "\(baseUrl)/getwalletmoney"
-        print("fetchWalletMoney url: \(url)")
+//        print("fetchWalletMoney url: \(url)")
         AF.request(url).validate().responseDecodable(of: [WalletMoney].self) { [weak self] response in
-            print("fetchWalletMoney response: \(response)")
+//            print("fetchWalletMoney response: \(response)")
             switch response.result {
                 case .success(let value):
                     if let firstWallet = value.first {
@@ -89,7 +89,7 @@ class PortfolioService: ObservableObject {
             switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    print("JSON: \(json)")
+//                    print("JSON: \(json)")
                     let records = json.arrayValue.map { jsonRecord -> PortfolioRecord in
                         return PortfolioRecord(
                             stocksymbol: jsonRecord["stocksymbol"].stringValue,

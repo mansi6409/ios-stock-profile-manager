@@ -15,6 +15,7 @@ class DetailsViewModel: ObservableObject {
     @Published var companyInfo: Details?
     @Published var stockPriceDetails: StockPriceDetails?
     @Published var isLoading: Bool?
+    @Published var news: [NewsItem]?
 
     private var cancellables = Set<AnyCancellable>()
     private let stockSearchService = StockSearchService()
@@ -57,6 +58,10 @@ class DetailsViewModel: ObservableObject {
         stockSearchService.$stockPriceDetails
             .sink { [weak self] in self?.stockPriceDetails = $0 }
             .store(in: &cancellables)
+        stockSearchService.$news
+            .sink { [weak self] in self?.news = $0 }
+            .store(in: &cancellables)
+
         
         
     }

@@ -34,6 +34,11 @@
 		33570CE42BC66DDA00AFCBF8 /* AutocompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */; };
 		33570CE62BC66FED00AFCBF8 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */; };
 		33570CE82BC8636A00AFCBF8 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */; };
+		33570CEA2BC8DA0100AFCBF8 /* Highchart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE92BC8DA0100AFCBF8 /* Highchart.swift */; };
+		33570CEC2BC9C3F300AFCBF8 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CEB2BC9C3F300AFCBF8 /* News.swift */; };
+		33570CEE2BCA1B6C00AFCBF8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CED2BCA1B6C00AFCBF8 /* Utils.swift */; };
+		33570CF02BCA1E9400AFCBF8 /* NewsDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CEF2BCA1E9400AFCBF8 /* NewsDetailSheet.swift */; };
+		33570CF22BCAC9F600AFCBF8 /* TradeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CF12BCAC9F600AFCBF8 /* TradeSheet.swift */; };
 		49CF3F42320E0639BEF0161C /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */; };
 		5C35376FCB0E8AE076A36464 /* Pods_Stock_Profile_ManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */; };
 /* End PBXBuildFile section */
@@ -86,6 +91,11 @@
 		33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteViewModel.swift; sourceTree = "<group>"; };
 		33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteView.swift; sourceTree = "<group>"; };
 		33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		33570CE92BC8DA0100AFCBF8 /* Highchart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highchart.swift; sourceTree = "<group>"; };
+		33570CEB2BC9C3F300AFCBF8 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		33570CED2BCA1B6C00AFCBF8 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		33570CEF2BCA1E9400AFCBF8 /* NewsDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailSheet.swift; sourceTree = "<group>"; };
+		33570CF12BCAC9F600AFCBF8 /* TradeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSheet.swift; sourceTree = "<group>"; };
 		34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_ManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile ManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile ManagerTests/Pods-Stock Profile ManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +184,10 @@
 				332EE7DE2BC1C1BC00F93DB8 /* DetailsView.swift */,
 				333B77EA2BC5BED500592668 /* StockDataView.swift */,
 				33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */,
+				33570CE92BC8DA0100AFCBF8 /* Highchart.swift */,
+				33570CED2BCA1B6C00AFCBF8 /* Utils.swift */,
+				33570CEF2BCA1E9400AFCBF8 /* NewsDetailSheet.swift */,
+				33570CF12BCAC9F600AFCBF8 /* TradeSheet.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -213,6 +227,7 @@
 				330817712BC373A7003D669A /* StockPriceDetails.swift */,
 				330817732BC37894003D669A /* History.swift */,
 				330817752BC37B71003D669A /* Peers.swift */,
+				33570CEB2BC9C3F300AFCBF8 /* News.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -487,15 +502,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				332EE7E62BC1CA4D00F93DB8 /* Wallet.swift in Sources */,
+				33570CEC2BC9C3F300AFCBF8 /* News.swift in Sources */,
 				332EE7E22BC1CA1300F93DB8 /* Portfolio.swift in Sources */,
 				332EE7E42BC1CA3600F93DB8 /* Favorite.swift in Sources */,
 				333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */,
 				330817722BC373A7003D669A /* StockPriceDetails.swift in Sources */,
+				33570CF22BCAC9F600AFCBF8 /* TradeSheet.swift in Sources */,
 				333B77E52BC3A88900592668 /* favorites.service.swift in Sources */,
 				33570CE82BC8636A00AFCBF8 /* FavoriteViewModel.swift in Sources */,
 				332EE7AA2BC1935B00F93DB8 /* Stock_Profile_ManagerApp.swift in Sources */,
 				33570CE62BC66FED00AFCBF8 /* AutocompleteView.swift in Sources */,
 				332EE7DF2BC1C1BC00F93DB8 /* DetailsView.swift in Sources */,
+				33570CEA2BC8DA0100AFCBF8 /* Highchart.swift in Sources */,
 				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
 				332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */,
 				333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */,
@@ -505,8 +523,10 @@
 				332EE7EC2BC206AA00F93DB8 /* DetailsViewModel.swift in Sources */,
 				330817742BC37894003D669A /* History.swift in Sources */,
 				330817762BC37B71003D669A /* Peers.swift in Sources */,
+				33570CF02BCA1E9400AFCBF8 /* NewsDetailSheet.swift in Sources */,
 				332EE7E92BC1D81200F93DB8 /* stocksearch.service.swift in Sources */,
 				332EE7D52BC1939200F93DB8 /* SplashView.swift in Sources */,
+				33570CEE2BCA1B6C00AFCBF8 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
