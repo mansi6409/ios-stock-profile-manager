@@ -16,6 +16,7 @@ struct StockDataView: View {
     @State private var showingDetailSheet = false
     @State private var selectedNewsItem: NewsItem?
     @State private var showingTradeSheet = false
+//    private var ownedShares: Double
     
     var body: some View {
         ScrollView {
@@ -60,6 +61,7 @@ struct StockDataView: View {
                                 //                        }
                                 //                }
                             if let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol }) {
+//                                self.ownedShares = portfolioRecord.quantity
                                     // When stocks are owned
                                 HStack{
                                     VStack(alignment: .leading, spacing: 5) {
@@ -111,10 +113,12 @@ struct StockDataView: View {
                                             .cornerRadius(20)
                                     }
                                     .sheet(isPresented: $showingTradeSheet) {
+                                        let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
                                         TradeSheetView(
                                             availableFunds: portfolioViewModel.walletMoney ,
                                             companyName:(viewModel.companyInfo?.name)!,
-                                            pricePerShare: (viewModel.stockPriceDetails?.c)!
+                                            pricePerShare: (viewModel.stockPriceDetails?.c)!,
+                                            ownedShares: portfolioRecord!.quantity
                                         ) // Pass the required parameters to your trade sheet view
                                     }
                                 }
@@ -136,10 +140,11 @@ struct StockDataView: View {
                                             .background(Color.green)
                                             .cornerRadius(20)
                                     }.sheet(isPresented: $showingTradeSheet) {
+                                        let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
                                         TradeSheetView(
                                             availableFunds: portfolioViewModel.walletMoney ,
                                             companyName:(viewModel.companyInfo?.name)!,
-                                            pricePerShare: (viewModel.stockPriceDetails?.c)!
+                                            pricePerShare: (viewModel.stockPriceDetails?.c)!, ownedShares: portfolioRecord!.quantity
                                         ) // Pass the required parameters to your trade sheet view
                                     }
                                     
