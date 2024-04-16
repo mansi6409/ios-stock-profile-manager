@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct Stock_Profile_ManagerApp: App {
     @State private var showSplashScreen = true
+    
+    @State var portfolioViewModel = PortfolioViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -23,6 +25,7 @@ struct Stock_Profile_ManagerApp: App {
                     }
             } else {
                 ContentView()
+                .environment(portfolioViewModel)
             }
         }
     }

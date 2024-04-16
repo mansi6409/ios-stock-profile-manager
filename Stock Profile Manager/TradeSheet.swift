@@ -13,6 +13,12 @@ struct TradeSheetView: View {
     @State private var toastMessage: String = ""
     @State private var showErrorToast: Bool = false
     @State private var keyboardHeight: CGFloat = 0
+    @State var companyDetails: Details?
+//    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
+    @Environment(PortfolioViewModel.self) var portfolioViewModel
+    @State var showBuySuccessSheet: Bool = false
+    @Binding var showingTradeSheet: Bool
+    
     
     var calculatedTotal: Double {
         if let numberOfSharesDouble = Double(numberOfShares) {
@@ -39,7 +45,18 @@ struct TradeSheetView: View {
                 if calculatedTotal > availableFunds {
                     showError(with: "Not enough money to buy")
                 } else {
-                        // Proceed with buying logic
+                    if let ticker = companyDetails?.ticker,
+                       let shares = Double(numberOfShares){
+                        if (ownedShares == 0){
+                            portfolioViewModel.addPortfolioRecord(symbol: ticker, quantity: shares, price: calculatedTotal)
+                            showBuySuccessSheet = true
+//                            portfolioViewModel.refreshData()
+                        } else {
+                            portfolioViewModel.updatePortfolioRecord(symbol: ticker, quantity: (ownedShares + shares), price: calculatedTotal)
+                            showBuySuccessSheet = true
+//                            portfolioViewModel.refreshData()
+                        }
+                    }
                 }
             case .sell:
                 if let sharesToSell = Double(numberOfShares), sharesToSell > ownedShares{
@@ -75,7 +92,7 @@ struct TradeSheetView: View {
                     }
                     .foregroundColor(.secondary)
                 }
-                Text("Trade Apple Inc shares")
+                Text("Trade \(companyName) shares")
                     .font(.system(size: 20))
                     //                    .bold()
                 Spacer()
@@ -113,7 +130,7 @@ struct TradeSheetView: View {
                         executeTrade(action: .buy)
                     }
                     .foregroundColor(.white)
-//                    .padding()
+                        //                    .padding()
                     .background(Color.green)
                     .cornerRadius(30)
                     .frame(width: UIScreen.main.bounds.width * 0.2)
@@ -124,7 +141,7 @@ struct TradeSheetView: View {
                         
                     }
                     .foregroundColor(.white)
-//                    .padding()
+                        //                    .padding()
                     .background(Color.green)
                     .cornerRadius(30)
                     .frame(width: UIScreen.main.bounds.width * 0.2)
@@ -132,7 +149,7 @@ struct TradeSheetView: View {
                 }
                 .padding(.leading, 30)
                 .padding(.trailing, 30)
-//                .frame(maxWidth: .infinity)
+                    //                .frame(maxWidth: .infinity)
                     //                .alert(isPresented: $showError) {
                     //                    Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
                     //                }
@@ -140,30 +157,33 @@ struct TradeSheetView: View {
             .padding()
             .navigationBarHidden(true)
             .toast(isPresented: $showErrorToast, message: toastMessage)
-//            .padding(.bottom, keyboardHeight) // Use the keyboard height to adjust padding
-//            .onAppear {
-//                NotificationCenter.default.addObserver(
-//                    forName: UIResponder.keyboardWillShowNotification,
-//                    object: nil,
-//                    queue: .main
-//                ) { notification in
-//                    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//                        keyboardHeight = keyboardSize.height
-//                    }
-//                }
-//                
-//                NotificationCenter.default.addObserver(
-//                    forName: UIResponder.keyboardWillHideNotification,
-//                    object: nil,
-//                    queue: .main
-//                ) { _ in
-//                    keyboardHeight = 0
-//                }
-//            }
-//            .onDisappear {
-//                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-//                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-//            }
+            .sheet(isPresented: $showBuySuccessSheet) {
+                SuccessBuySheet(sharesBought: numberOfShares, companyName: companyName, showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
+            }
+                //            .padding(.bottom, keyboardHeight) // Use the keyboard height to adjust padding
+                //            .onAppear {
+                //                NotificationCenter.default.addObserver(
+                //                    forName: UIResponder.keyboardWillShowNotification,
+                //                    object: nil,
+                //                    queue: .main
+                //                ) { notification in
+                //                    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                //                        keyboardHeight = keyboardSize.height
+                //                    }
+                //                }
+                //
+                //                NotificationCenter.default.addObserver(
+                //                    forName: UIResponder.keyboardWillHideNotification,
+                //                    object: nil,
+                //                    queue: .main
+                //                ) { _ in
+                //                    keyboardHeight = 0
+                //                }
+                //            }
+                //            .onDisappear {
+                //                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+                //                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+                //            }
         }
         .padding()
         
@@ -179,18 +199,24 @@ struct FilledButtonStyle: ButtonStyle {
             .padding()
             .background(Color.green)
             .cornerRadius(30)
-//            .scaleEffect(configuration.isPressed ? 0.96 : 1)
+            //            .scaleEffect(configuration.isPressed ? 0.96 : 1)
             .frame(width: UIScreen.main.bounds.width * 0.4)
-
+        
             //            .frame(maxWidth: .infinity)
     }
 }
 
-struct TradeSheetView_Previews: PreviewProvider {
-    static var previews: some View {
-        TradeSheetView(availableFunds: 0, companyName: "", pricePerShare: 0, ownedShares: 0)
-    }
+#Preview {
+    TradeSheetView(availableFunds: 0, companyName: "", pricePerShare: 0, ownedShares: 0, showingTradeSheet: .constant(true))
+        .environment(PortfolioViewModel())
 }
+
+//struct TradeSheetView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TradeSheetView(availableFunds: 0, companyName: "", pricePerShare: 0, ownedShares: 0, showingTradeSheet: .constant(true))
+//            .environment(PortfolioViewModel())
+//    }
+//}
 extension View {
     func equalSizes() -> some View {
         self.modifier(EqualSizesModifier())
@@ -223,7 +249,7 @@ struct ToastView: ViewModifier {
                     }
                     .zIndex(1)
                     .padding(.top, 640)
-//                    .frame(width: 500)
+                    //                    .frame(width: 500)
             }
         }
     }

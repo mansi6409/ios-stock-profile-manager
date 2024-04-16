@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(PortfolioViewModel.self) var portfolioViewModel
+
     var body: some View {
 //        VStack(alignment: .leading) {
 //            Image(systemName: "globe")
@@ -25,9 +27,11 @@ struct ContentView: View {
 //        }
 //        .padding()
         HomepageView()
+
     }
 }
 
 #Preview {
     ContentView()
+        .environment(PortfolioViewModel())
 }

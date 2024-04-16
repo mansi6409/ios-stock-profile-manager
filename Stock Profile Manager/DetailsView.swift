@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct DetailsView: View {
-    @ObservedObject var viewModel = DetailsViewModel()
-    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
+//    @ObservedObject var viewModel = DetailsViewModel()
+    @Environment(DetailsViewModel.self) var viewModel
+
+//    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
+    @Environment(PortfolioViewModel.self) var portfolioViewModel
     @ObservedObject private var favoritesViewModel = FavoritesViewModel()
     
     var body: some View {
@@ -56,7 +59,8 @@ struct DetailsView: View {
                 }
                 .padding()
                 ForEach(portfolioViewModel.portfolioRecordsData.indices, id: \.self) { index in
-                    NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol)) {
+                    NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol)
+                        .environment(viewModel)) {
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -92,7 +96,8 @@ struct DetailsView: View {
             
             Section(header: Text("FAVORITES")) {
                 ForEach(favoritesViewModel.favoritesEntries.indices, id: \.self) { index in
-                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol)) {
+                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol)
+                        .environment(viewModel)) {
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -136,15 +141,17 @@ struct DetailsView: View {
     }
 }
 
-    //#Preview {
-    //    DetailsView(viewModel: <#DetailsViewModel#>)
-    //}
-
-struct DetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailsView(viewModel: DetailsViewModel())
+    #Preview {
+        DetailsView()
+            .environment(PortfolioViewModel())
+            .environment(DetailsViewModel())
     }
-}
+
+//struct DetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailsView(viewModel: DetailsViewModel())
+//    }
+//}
 struct RightAlignedDivider: View {
     var body: some View {
         HStack {

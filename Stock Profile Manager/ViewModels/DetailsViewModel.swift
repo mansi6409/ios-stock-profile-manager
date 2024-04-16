@@ -1,70 +1,91 @@
-//
-//  DetailsViewModel.swift
-//  Stock Profile Manager
-//
-//  Created by Mansi Garg on 4/6/24.
-//
+    //
+    //  DetailsViewModel.swift
+    //  Stock Profile Manager
+    //
+    //  Created by Mansi Garg on 4/6/24.
+    //
 
 import Foundation
 import SwiftUI
 import Combine
 
-class DetailsViewModel: ObservableObject {
-    @Published var searchString: String = ""
-//    @Published var stockDetail: Details?
-    @Published var companyInfo: Details?
-    @Published var stockPriceDetails: StockPriceDetails?
-    @Published var isLoading: Bool?
-    @Published var news: [NewsItem]?
+import Combine
 
+@Observable
+class DetailsViewModel {
+    var searchString: String = "" {
+        didSet {
+            fetchData(for: searchString)
+        }
+    }
+    var companyInfo: Details?
+    var stockPriceDetails: StockPriceDetails?
+    var isLoading: Bool = false
+    var news: [NewsItem]?
+    
     private var cancellables = Set<AnyCancellable>()
     private let stockSearchService = StockSearchService()
     
     init() {
-//        $searchString
-//            .debounce(for: 0.5, scheduler: DispatchQueue.main) // Wait for 0.5 seconds after typing stops
-//            .removeDuplicates() // Only search if the new value is different from the last one
-//            .flatMap { searchString -> AnyPublisher<Details, Never> in
-//                guard !searchString.isEmpty else {
-//                    return Just(Details()).eraseToAnyPublisher() // Return an empty result if the search string is empty
-//                }
-//                return self.stockSearchService.searchStock(stock: searchString)
-//                    .catch { _ in Just(Details()) } // Handle errors by returning an empty result
-//                    .eraseToAnyPublisher()
-////                return result
-//            }
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { [weak self] stockDetail in
-//                self?.stockDetail = stockDetail
-//            })
+        observeServiceUpdates()
+    }
+    
+    private func fetchData(for searchString: String) {
+        guard !searchString.isEmpty else {
+            clearData()
+            return
+        }
+        isLoading = true
+        stockSearchService.fetchAllData(forStock: searchString)
+    }
+    
+    private func clearData() {
+        companyInfo = nil
+        stockPriceDetails = nil
+        news = nil
+        isLoading = false
+    }
+    
+//    private func observeServiceUpdates() {
+//        stockSearchService.$companyInfo
+//            .assign(to: \.companyInfo, on: self)
 //            .store(in: &cancellables)
-        $searchString
-            .debounce(for: 0.5, scheduler: DispatchQueue.main) // Wait for 0.5 seconds after typing stops
-            .removeDuplicates() // Only search if the new value is different from the last one
-            .sink { searchString in
-                guard !searchString.isEmpty else {
-                        // Clear the current data if the search string is empty
-                    self.companyInfo = nil
-                    self.stockPriceDetails = nil
-                    return
-                }
-                self.stockSearchService.fetchAllData(forStock: searchString)
+//        
+//        stockSearchService.$stockPriceDetails
+//            .assign(to: \.stockPriceDetails, on: self)
+//            .store(in: &cancellables)
+//        
+//        stockSearchService.$news
+//            .assign(to: \.news, on: self)
+//            .store(in: &cancellables)
+//        
+//        stockSearchService.$isLoading
+//            .assign(to: \.isLoading, on: self)
+//            .store(in: &cancellables)
+//    }
+    private func observeServiceUpdates() {
+        stockSearchService.$companyInfo
+            .sink { [weak self] newCompanyInfo in
+                self?.companyInfo = newCompanyInfo
             }
             .store(in: &cancellables)
-            // Observe the companyInfo and stockPriceDetails from the StockSearchService
-        stockSearchService.$companyInfo
-            .sink { [weak self] in self?.companyInfo = $0 }
-            .store(in: &cancellables)
+        
         stockSearchService.$stockPriceDetails
-            .sink { [weak self] in self?.stockPriceDetails = $0 }
+            .sink { [weak self] newStockPriceDetails in
+                self?.stockPriceDetails = newStockPriceDetails
+            }
             .store(in: &cancellables)
+        
         stockSearchService.$news
-            .sink { [weak self] in self?.news = $0 }
+            .sink { [weak self] newNews in
+                self?.news = newNews
+            }
             .store(in: &cancellables)
-
         
-        
+        stockSearchService.$isLoading
+            .sink { [weak self] newIsLoading in
+                self?.isLoading = newIsLoading
+            }
+            .store(in: &cancellables)
     }
 }
-
-

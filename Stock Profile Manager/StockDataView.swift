@@ -11,11 +11,13 @@ import Kingfisher
 struct StockDataView: View {
     
     var symbol: String
-    @ObservedObject var viewModel = DetailsViewModel()
-    @StateObject private var portfolioViewModel = PortfolioViewModel()
-    @State private var showingDetailSheet = false
+//    @ObservedObject var viewModel = DetailsViewModel()
+//    @StateObject private var portfolioViewModel = PortfolioViewModel()
+    @Environment(PortfolioViewModel.self) var portfolioViewModel
+    @Environment(DetailsViewModel.self) var viewModel
+    @State var showingDetailSheet = false
     @State private var selectedNewsItem: NewsItem?
-    @State private var showingTradeSheet = false
+    @State var showingTradeSheet = false
 //    private var ownedShares: Double
     
     var body: some View {
@@ -118,8 +120,12 @@ struct StockDataView: View {
                                             availableFunds: portfolioViewModel.walletMoney ,
                                             companyName:(viewModel.companyInfo?.name)!,
                                             pricePerShare: (viewModel.stockPriceDetails?.c)!,
-                                            ownedShares: portfolioRecord!.quantity
-                                        ) // Pass the required parameters to your trade sheet view
+                                            ownedShares: portfolioRecord!.quantity,
+                                            companyDetails: viewModel.companyInfo!,
+                                            showingTradeSheet: $showingTradeSheet
+                                            
+                                        )
+
                                     }
                                 }
                             } else {
@@ -144,8 +150,12 @@ struct StockDataView: View {
                                         TradeSheetView(
                                             availableFunds: portfolioViewModel.walletMoney ,
                                             companyName:(viewModel.companyInfo?.name)!,
-                                            pricePerShare: (viewModel.stockPriceDetails?.c)!, ownedShares: portfolioRecord!.quantity
-                                        ) // Pass the required parameters to your trade sheet view
+                                            pricePerShare: (viewModel.stockPriceDetails?.c)!, 
+                                            ownedShares: 0,
+                                            companyDetails: viewModel.companyInfo!,
+                                            showingTradeSheet: $showingTradeSheet
+                                        )
+
                                     }
                                     
                                 }
@@ -218,7 +228,9 @@ struct StockDataView: View {
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack {
                                             ForEach(viewModel.companyInfo?.peers ?? [], id: \.self) { peer in
-                                                NavigationLink(destination: StockDataView(symbol: peer)) {
+                                                NavigationLink(destination: StockDataView(symbol: peer)
+                                                    .environment(viewModel)
+) {
                                                     Text(peer)
                                                         .foregroundColor(.blue)
                                                 }
@@ -485,4 +497,6 @@ struct SmallNewsItemView: View {
 
 #Preview {
     StockDataView(symbol: "")
+        .environment(PortfolioViewModel())
+        .environment(DetailsViewModel())
 }

@@ -39,7 +39,7 @@ class PortfolioService: ObservableObject {
     @Published private(set) var portfolioRecordsData: [PortfolioRecord] = []
     @Published private(set) var netWorth: Double = 25000
     
-//    @Published private(set) var portfolioRecords: [PortfolioRecord] = []
+        //    @Published private(set) var portfolioRecords: [PortfolioRecord] = []
     
     @Published var stockPriceDetails: StockPriceDetails?
     @Published var companyInfo: Details?
@@ -51,9 +51,9 @@ class PortfolioService: ObservableObject {
     
     func fetchWalletMoney() {
         let url = "\(baseUrl)/getwalletmoney"
-//        print("fetchWalletMoney url: \(url)")
+            //        print("fetchWalletMoney url: \(url)")
         AF.request(url).validate().responseDecodable(of: [WalletMoney].self) { [weak self] response in
-//            print("fetchWalletMoney response: \(response)")
+                //            print("fetchWalletMoney response: \(response)")
             switch response.result {
                 case .success(let value):
                     if let firstWallet = value.first {
@@ -82,23 +82,57 @@ class PortfolioService: ObservableObject {
         }
     }
     
-    func addPortfolioRecord(symbol: String, quantity: Double, price: Double) {
-        
-        let url = "\(baseUrl)/addportfoliorecord?symbol=\(symbol),stockquantity=\(quantity),price=\(price)"
+    func updatePortfolioRecord(symbol: String, quantity: Double, price: Double) {
+        let url = "\(baseUrl)/updateportfoliorecord?symbol=\(symbol)&stockquantity=\(quantity)&price=\(price)"
         AF.request(url).validate().responseDecodable(of: [PortfolioRecord].self){ response in
             switch response.result {
                 case .success(let value):
-                    let json = JSON(value)
-//                    print("JSON: \(json)")
-                    let records = json.arrayValue.map { jsonRecord -> PortfolioRecord in
-                        return PortfolioRecord(
-                            stocksymbol: jsonRecord["stocksymbol"].stringValue,
-                            quantity: jsonRecord["quantity"].doubleValue,
-                            cost: jsonRecord["cost"].doubleValue
-                        )
+                    var updatedRecords: [PortfolioRecord] = []
+                    
+                    let dispatchGroup = DispatchGroup()
+                    
+                    value.forEach { record in
+                        dispatchGroup.enter()
+                        
+                        self.fetchDetailsForPortfolioRecords(record) { updatedRecord in
+                                // Update the record with the new data
+                            updatedRecords.append(updatedRecord)
+                            dispatchGroup.leave()
+                        }
                     }
-                    DispatchQueue.main.async {
-//                        self.portfolioRecords = records
+                    
+                    dispatchGroup.notify(queue: .main) {
+                            // Update the entire array and notify observers
+                        self.portfolioRecordsData = updatedRecords
+                    }
+                case .failure(let error):
+                    print("add to portfolio \(error)")
+            }
+        }
+    }
+    
+    func addPortfolioRecord(symbol: String, quantity: Double, price: Double) {
+        let url = "\(baseUrl)/addportfoliorecord?symbol=\(symbol)&stockquantity=\(quantity)&price=\(price)"
+        AF.request(url).validate().responseDecodable(of: [PortfolioRecord].self){ response in
+            switch response.result {
+                case .success(let value):
+                    var updatedRecords: [PortfolioRecord] = []
+                    
+                    let dispatchGroup = DispatchGroup()
+                    
+                    value.forEach { record in
+                        dispatchGroup.enter()
+                        
+                        self.fetchDetailsForPortfolioRecords(record) { updatedRecord in
+                                // Update the record with the new data
+                            updatedRecords.append(updatedRecord)
+                            dispatchGroup.leave()
+                        }
+                    }
+                    
+                    dispatchGroup.notify(queue: .main) {
+                            // Update the entire array and notify observers
+                        self.portfolioRecordsData = updatedRecords
                     }
                 case .failure(let error):
                     print("add to portfolio \(error)")
@@ -120,7 +154,7 @@ class PortfolioService: ObservableObject {
                         //                        )
                         //                    }
                     DispatchQueue.main.async {
-//                        self.portfolioRecords = value
+                            //                        self.portfolioRecords = value
                     }
                 case .failure(let error):
                     print("getPortfolio \(error)")
@@ -133,16 +167,16 @@ class PortfolioService: ObservableObject {
         AF.request(url).validate().responseDecodable(of: [PortfolioRecord].self) { response in
             switch response.result {
                 case .success(let value):
-//                    DispatchQueue.main.async {
-//                        self.portfolioRecordsData = value
-//                    }
+                        //                    DispatchQueue.main.async {
+                        //                        self.portfolioRecordsData = value
+                        //                    }
                     var updatedRecords: [PortfolioRecord] = []
-
+                    
                     let dispatchGroup = DispatchGroup()
-
+                    
                     value.forEach { record in
                         dispatchGroup.enter()
-
+                        
                         self.fetchDetailsForPortfolioRecords(record) { updatedRecord in
                                 // Update the record with the new data
                             updatedRecords.append(updatedRecord)
@@ -161,6 +195,11 @@ class PortfolioService: ObservableObject {
             }
         }
     }
+    
+    
+        //    func fetchDetailsForPortfolioRecords(_ record: PortfolioRecord, completion: @escaping (PortfolioRecord) -> Void) {
+        //        print("i am in fetchDetailsForPortfolioRecords")
+        //    }
     
     func fetchDetailsForPortfolioRecords(_ record: PortfolioRecord, completion: @escaping (PortfolioRecord) -> Void) {
         let companyInfoURL = "\(baseUrl)/company?symbol=\(record.stocksymbol.uppercased())"
@@ -208,15 +247,15 @@ class PortfolioService: ObservableObject {
         }
         
         dispatchGroup.notify(queue: .main) {
-//            if let index = self.portfolioRecordsData.firstIndex(where: { $0.id == record.id }) {
-//                    // Update the specific record in the array with the new data
-//                self.portfolioRecordsData[index] = portfolioRecord
-//            }
+                //            if let index = self.portfolioRecordsData.firstIndex(where: { $0.id == record.id }) {
+                //                    // Update the specific record in the array with the new data
+                //                self.portfolioRecordsData[index] = portfolioRecord
+                //            }
             
                 // Notify observers by re-assigning the array
-//            self.portfolioRecordsData = self.portfolioRecordsData.map { $0 }
+                //            self.portfolioRecordsData = self.portfolioRecordsData.map { $0 }
             completion(portfolioRecord!) // Assuming `portfolioRecord` is your updated record
-
+            
         }
     }
     

@@ -12,6 +12,8 @@ struct AutocompleteView: View {
 //    @Binding var isSearching: Bool
 
     @ObservedObject var viewModel = AutocompleteViewModel()
+    @Environment(DetailsViewModel.self) var detailsViewModel
+
     var body: some View {
 //        NavigationView {
             searchResultsList
@@ -33,7 +35,8 @@ struct AutocompleteView: View {
     }
     
     private func searchResultRow(for result: AutocompleteData) -> some View {
-        NavigationLink(destination: StockDataView( symbol: result.displaySymbol)) {
+        NavigationLink(destination: StockDataView( symbol: result.displaySymbol)                        .environment(detailsViewModel)
+        ) {
             Text("\(result.displaySymbol) - \(result.description)")
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -42,4 +45,6 @@ struct AutocompleteView: View {
 
 #Preview {
     AutocompleteView(searchText: .constant(""))
+        .environment(DetailsViewModel()
+)
 }

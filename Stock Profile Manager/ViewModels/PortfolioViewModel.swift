@@ -8,11 +8,14 @@
 import Foundation
 import Combine
 
-class PortfolioViewModel: ObservableObject {
+@Observable
+class PortfolioViewModel {
         // MARK: - Properties
-    @Published var walletMoney: Double = 0
-    @Published var portfolioRecordsData: [PortfolioRecord] = []
-    @Published var netWorth: Double = 0
+    var walletMoney: Double = 0
+    let updateSignal = PassthroughSubject<Void, Never>()
+
+    var portfolioRecordsData: [PortfolioRecord] = []
+    var netWorth: Double = 0
     
         // MARK: - Private Properties
     
@@ -22,6 +25,22 @@ class PortfolioViewModel: ObservableObject {
         // MARK: - Init
     init() {
         bindService()
+        setupUpdateListener()
+    }
+    
+    private func setupUpdateListener() {
+        updateSignal
+            .debounce(for: .seconds(1), scheduler: RunLoop.main) // Adjust timing as needed
+            .sink { [weak self] in
+                self?.refreshData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func refreshData() {
+            // Refresh your data here
+        fetchWalletMoney()
+        getPortfolioRecordsData()
     }
     
         // MARK: - Methods to bind service to the ViewModel
@@ -52,11 +71,19 @@ class PortfolioViewModel: ObservableObject {
         service.addPortfolioRecord(symbol: symbol, quantity: quantity, price: price)
     }
     
+    func updatePortfolioRecord(symbol: String, quantity: Double, price: Double) {
+        service.updatePortfolioRecord(symbol: symbol, quantity: quantity, price: price)
+    }
+    
     func getPortfolio() {
         service.getPortfolio()
     }
     
-        // Add other methods that you need to interact with the PortfolioService
+    func getPortfolioRecordsData() {
+        service.getPortfolioRecordsData()
+        print("portfolioRecordsData: \(portfolioRecordsData)")
+    }
+    
 }
 
 

@@ -9,21 +9,27 @@ import SwiftUI
 
 struct HomepageView: View {
     @State private var searchString = ""
-    @StateObject private var detailsViewModel = DetailsViewModel()
+    @State var detailsViewModel = DetailsViewModel()
     @StateObject private var autocompleteViewModel = AutocompleteViewModel()
-    
+    @Environment(PortfolioViewModel.self) var portfolioViewModel
+
     @State private var isSearching = false
     
     var body: some View {
         NavigationView {
             VStack {
                 if searchString.isEmpty {
-                    DetailsView(viewModel: detailsViewModel)
+                    DetailsView()
                         .navigationTitle("Stocks")
                         .navigationBarItems(trailing: EditButton())
+                        .environment(detailsViewModel)
+                        .environment(portfolioViewModel)
+
                 } else {
                     AutocompleteView(searchText: $searchString, viewModel: autocompleteViewModel)
+                        .environment(detailsViewModel)
                         .navigationBarTitleDisplayMode(.inline)
+
                 }
             }
             .searchable(text: $searchString, prompt: "Search for stocks")
@@ -39,4 +45,5 @@ struct HomepageView: View {
 
 #Preview {
     HomepageView()
+        .environment(PortfolioViewModel())
 }
