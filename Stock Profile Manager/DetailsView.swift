@@ -91,6 +91,9 @@ struct DetailsView: View {
                             //                    RightAlignedDivider()
                     }
                 }
+                .onDelete(perform: deletePortfolioItem)
+                .onMove(perform: movePortfolioItem)
+
             }
             
             
@@ -128,6 +131,9 @@ struct DetailsView: View {
                             //                    RightAlignedDivider()
                     }
                 }
+                .onDelete(perform: deleteFavoriteItem)
+                .onMove(perform: moveFavoriteItem)
+
             }
             
             Section {
@@ -159,6 +165,32 @@ struct DetailsView: View {
         formatter.dateFormat = "MMMM dd, yyyy"
         return formatter.string(from: Date())
     }
+    
+    func deletePortfolioItem(at offsets: IndexSet) {
+            // Remove the item from the portfolio records
+//        portfolioViewModel.portfolioRecordsData.remove(atOffsets: offsets)
+        print("i am trying to delete portfolio item")
+        print(offsets)
+    }
+    
+    func deleteFavoriteItem(at offsets: IndexSet) {
+            // Remove the item from the favorites entries
+//        favoritesViewModel.favoritesEntries.remove(atOffsets: offsets)
+        print("i am trying to delete fav item")
+        print(offsets)
+    }
+    
+    private func movePortfolioItem(from source: IndexSet, to destination: Int) {
+//        portfolioViewModel.portfolioRecordsData.move(fromOffsets: source, toOffset: destination)
+        print("i am trying to move portfolio item")
+    }
+    
+    private func moveFavoriteItem(from source: IndexSet, to destination: Int) {
+//        favoritesViewModel.favoritesEntries.move(fromOffsets: source, toOffset: destination)
+        print("i am trying to move fav item")
+
+    }
+
 }
 
     #Preview {
