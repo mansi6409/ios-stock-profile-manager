@@ -130,6 +130,26 @@ struct DetailsView: View {
                 }
             }
             
+            Section {
+                Link(destination: URL(string: "https://finnhub.io")!) {
+                    HStack {
+                        Spacer()
+                        Text("Powered by Finnhub.io")
+                            .foregroundColor(.gray)
+                            .padding(.vertical)
+                            .padding(.horizontal, -6)
+                            .frame( width: 350, alignment: .center)
+                            .background(Color.white)
+                            .cornerRadius(9)
+                        Spacer()
+                    }
+                    .padding()
+                }
+            }
+            .listRowBackground(Color(.systemGroupedBackground))
+            .listStyle(PlainListStyle())
+            .padding(.horizontal, -26)
+            
             
         }.background(Color(.systemGroupedBackground))
     }
