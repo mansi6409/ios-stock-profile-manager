@@ -11,14 +11,21 @@ import Kingfisher
 struct StockDataView: View {
     
     var symbol: String
-//    @ObservedObject var viewModel = DetailsViewModel()
-//    @StateObject private var portfolioViewModel = PortfolioViewModel()
+        //    @ObservedObject var viewModel = DetailsViewModel()
+        //    @StateObject private var portfolioViewModel = PortfolioViewModel()
     @Environment(PortfolioViewModel.self) var portfolioViewModel
     @Environment(DetailsViewModel.self) var viewModel
     @State var showingDetailSheet = false
     @State private var selectedNewsItem: NewsItem?
     @State var showingTradeSheet = false
-//    private var ownedShares: Double
+    @State var showBuySuccessSheet = false
+    @State var showSellSuccessSheet = false
+    @State var numberOfShares: String = ""
+    @State var allSharesSold: Bool = false
+    @State var shouldCloseToHome = false
+    @State var sellClosed = false
+    
+        //    private var ownedShares: Double
     
     var body: some View {
         ScrollView {
@@ -26,7 +33,15 @@ struct StockDataView: View {
                 if viewModel.isLoading == true{
                     ProgressView("Loading...")
                 }
-                else {
+//                else if (shouldCloseToHome && sellClosed) {
+//                    DetailsView()
+////                        .navigationTitle("Stocks")
+//                        .navigationBarItems(trailing: EditButton())
+//                        .environment(viewModel)
+//                        .environment(portfolioViewModel)
+//                }
+//                else if (!shouldCloseToHome){
+                else{
                     VStack(alignment: .leading) {
                         if let ticker = viewModel.companyInfo?.ticker, let name = viewModel.companyInfo?.name {
                             Text((viewModel.companyInfo?.ticker) ?? "")
@@ -63,8 +78,6 @@ struct StockDataView: View {
                                 //                        }
                                 //                }
                             if let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol }) {
-//                                self.ownedShares = portfolioRecord.quantity
-                                    // When stocks are owned
                                 HStack{
                                     VStack(alignment: .leading, spacing: 5) {
                                         Text("Portfolio")
@@ -105,8 +118,7 @@ struct StockDataView: View {
                                         }
                                     }
                                     Button(action: {
-                                        showingTradeSheet = true // Toggle the state to show the trade sheet
-//                                        presentationMode.wrappedValue.dismiss()
+                                        showingTradeSheet = true
                                     }) {
                                         Text("Trade")
                                             .foregroundColor(.white)
@@ -117,15 +129,30 @@ struct StockDataView: View {
                                     .sheet(isPresented: $showingTradeSheet) {
                                         let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
                                         TradeSheetView(
+                                            numberOfShares: $numberOfShares,
                                             availableFunds: portfolioViewModel.walletMoney ,
                                             companyName:(viewModel.companyInfo?.name)!,
                                             pricePerShare: (viewModel.stockPriceDetails?.c)!,
                                             ownedShares: portfolioRecord!.quantity,
                                             companyDetails: viewModel.companyInfo!,
-                                            showingTradeSheet: $showingTradeSheet
-                                            
+                                            showingTradeSheet: $showingTradeSheet,
+                                            showSellSuccessSheet: $showSellSuccessSheet,
+                                            showBuySuccessSheet: $showBuySuccessSheet,
+                                            allSharesSold: $allSharesSold
                                         )
-
+                                    }
+                                    
+                                    .sheet(isPresented: $showBuySuccessSheet) {
+                                        SuccessBuySheet(sharesBought: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
+                                    }
+                                    
+                                    .sheet(isPresented: $showSellSuccessSheet) {
+                                        SuccessSellSheet(sharesSold: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet,
+                                            allSharesSold: $allSharesSold,
+                                            closeToHome: { val in
+                                            self.shouldCloseToHome = val
+                                            },
+                                            sellClosed: $sellClosed)
                                     }
                                 }
                             } else {
@@ -146,16 +173,19 @@ struct StockDataView: View {
                                             .background(Color.green)
                                             .cornerRadius(20)
                                     }.sheet(isPresented: $showingTradeSheet) {
-                                        let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
                                         TradeSheetView(
+                                            numberOfShares: $numberOfShares,
                                             availableFunds: portfolioViewModel.walletMoney ,
                                             companyName:(viewModel.companyInfo?.name)!,
-                                            pricePerShare: (viewModel.stockPriceDetails?.c)!, 
+                                            pricePerShare: (viewModel.stockPriceDetails?.c)!,
                                             ownedShares: 0,
                                             companyDetails: viewModel.companyInfo!,
-                                            showingTradeSheet: $showingTradeSheet
+                                            showingTradeSheet: $showingTradeSheet,
+                                            showSellSuccessSheet: $showSellSuccessSheet,
+                                            showBuySuccessSheet: $showBuySuccessSheet,
+                                            allSharesSold: $allSharesSold
                                         )
-
+                                        
                                     }
                                     
                                 }
@@ -230,7 +260,7 @@ struct StockDataView: View {
                                             ForEach(viewModel.companyInfo?.peers ?? [], id: \.self) { peer in
                                                 NavigationLink(destination: StockDataView(symbol: peer)
                                                     .environment(viewModel)
-) {
+                                                ) {
                                                     Text(peer)
                                                         .foregroundColor(.blue)
                                                 }
@@ -295,36 +325,36 @@ struct StockDataView: View {
     }
 } // struct ended
 
-//struct NewsItemView: View {
-//    let newsItem: NewsItem
-//    let isLarge: Bool
-//    @Binding var showingDetailSheet: Bool
-//    @Binding var selectedNewsItem: NewsItem?
-//    
-//    var body: some View {
-//        Button(action: {
-//                // Set the selected news item and show the detail sheet when the button is tapped
-//            self.selectedNewsItem = newsItem
-//            self.showingDetailSheet = true
-//        }) {
-//                // The content of the button is the same view you had before
-//            if isLarge {
-//                LargeNewsItemView(newsItem: newsItem, action: {
-//                    self.selectedNewsItem = newsItem
-//                    self.showingDetailSheet = true}
-//                )
-//                
-//            } else {
-//                SmallNewsItemView(newsItem: newsItem, action: {
-//                    self.selectedNewsItem = newsItem
-//                    self.showingDetailSheet = true})
-//            }
-//            
-//        }
-//            // Customize button to look like a regular view
-//        .buttonStyle(PlainButtonStyle())
-//    }
-//}
+    //struct NewsItemView: View {
+    //    let newsItem: NewsItem
+    //    let isLarge: Bool
+    //    @Binding var showingDetailSheet: Bool
+    //    @Binding var selectedNewsItem: NewsItem?
+    //
+    //    var body: some View {
+    //        Button(action: {
+    //                // Set the selected news item and show the detail sheet when the button is tapped
+    //            self.selectedNewsItem = newsItem
+    //            self.showingDetailSheet = true
+    //        }) {
+    //                // The content of the button is the same view you had before
+    //            if isLarge {
+    //                LargeNewsItemView(newsItem: newsItem, action: {
+    //                    self.selectedNewsItem = newsItem
+    //                    self.showingDetailSheet = true}
+    //                )
+    //
+    //            } else {
+    //                SmallNewsItemView(newsItem: newsItem, action: {
+    //                    self.selectedNewsItem = newsItem
+    //                    self.showingDetailSheet = true})
+    //            }
+    //
+    //        }
+    //            // Customize button to look like a regular view
+    //        .buttonStyle(PlainButtonStyle())
+    //    }
+    //}
 struct NewsItemView: View {
     let newsItem: NewsItem
     let isLarge: Bool
@@ -358,72 +388,72 @@ struct NewsItemView: View {
 }
 
 
-//struct LargeNewsItemView: View {
-//    let newsItem: NewsItem
-//    var action: () -> Void
-//    
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            KFImage(URL(string: newsItem.image!))
-//                .resizable()
-//                .aspectRatio(contentMode: .fill)
-//                .clipped()
-//            HStack {
-//                
-//                Text(newsItem.source!)
-//                    .font(.caption)
-//                    .foregroundColor(.secondary)
-//                Text(Utils.relativeTimeString(from: newsItem.datetime!))
-//                    .font(.caption)
-//                    .foregroundColor(.secondary)
-//                
-//            }
-//            Text(newsItem.headline!)
-//                .font(.headline)
-//                .lineLimit(3)
-//        }
-//        .padding()
-//        .background(Color.white)
-//        .cornerRadius(8)
-//        .shadow(radius: 4)
-//        .onTapGesture(perform: action)
-//    }
-//}
+    //struct LargeNewsItemView: View {
+    //    let newsItem: NewsItem
+    //    var action: () -> Void
+    //
+    //    var body: some View {
+    //        VStack(alignment: .leading) {
+    //            KFImage(URL(string: newsItem.image!))
+    //                .resizable()
+    //                .aspectRatio(contentMode: .fill)
+    //                .clipped()
+    //            HStack {
+    //
+    //                Text(newsItem.source!)
+    //                    .font(.caption)
+    //                    .foregroundColor(.secondary)
+    //                Text(Utils.relativeTimeString(from: newsItem.datetime!))
+    //                    .font(.caption)
+    //                    .foregroundColor(.secondary)
+    //
+    //            }
+    //            Text(newsItem.headline!)
+    //                .font(.headline)
+    //                .lineLimit(3)
+    //        }
+    //        .padding()
+    //        .background(Color.white)
+    //        .cornerRadius(8)
+    //        .shadow(radius: 4)
+    //        .onTapGesture(perform: action)
+    //    }
+    //}
 
-//struct SmallNewsItemView: View {
-//    let newsItem: NewsItem
-//    var action: () -> Void
-//    var body: some View {
-//        HStack {
-//            
-//            VStack(alignment: .leading) {
-//                HStack{
-//                    
-//                    Text(newsItem.source!)
-//                        .font(.caption)
-//                        .foregroundColor(.secondary)
-//                    Text(Utils.relativeTimeString(from: newsItem.datetime!))
-//                        .font(.caption)
-//                        .foregroundColor(.secondary)
-//                    
-//                }
-//                Text(newsItem.headline!)
-//                    .font(.headline)
-//                .lineLimit(2)            }
-//            .padding(.leading, 5)
-//            
-//            KFImage(URL(string: newsItem.image!))
-//                .resizable()
-//                .aspectRatio(contentMode: .fill)
-//                .frame(width: 80, height: 80)
-//                .clipped()
-//                .cornerRadius(8)
-//        }
-//        .background(Color.white)
-//        .cornerRadius(8)
-//        .shadow(radius: 4)
-//    }
-//}
+    //struct SmallNewsItemView: View {
+    //    let newsItem: NewsItem
+    //    var action: () -> Void
+    //    var body: some View {
+    //        HStack {
+    //
+    //            VStack(alignment: .leading) {
+    //                HStack{
+    //
+    //                    Text(newsItem.source!)
+    //                        .font(.caption)
+    //                        .foregroundColor(.secondary)
+    //                    Text(Utils.relativeTimeString(from: newsItem.datetime!))
+    //                        .font(.caption)
+    //                        .foregroundColor(.secondary)
+    //
+    //                }
+    //                Text(newsItem.headline!)
+    //                    .font(.headline)
+    //                .lineLimit(2)            }
+    //            .padding(.leading, 5)
+    //
+    //            KFImage(URL(string: newsItem.image!))
+    //                .resizable()
+    //                .aspectRatio(contentMode: .fill)
+    //                .frame(width: 80, height: 80)
+    //                .clipped()
+    //                .cornerRadius(8)
+    //        }
+    //        .background(Color.white)
+    //        .cornerRadius(8)
+    //        .shadow(radius: 4)
+    //    }
+    //}
 struct LargeNewsItemView: View {
     let newsItem: NewsItem
     var action: () -> Void

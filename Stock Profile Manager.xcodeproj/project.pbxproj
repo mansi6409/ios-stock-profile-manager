@@ -31,6 +31,7 @@
 		333B77E52BC3A88900592668 /* favorites.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E42BC3A88900592668 /* favorites.service.swift */; };
 		333B77E72BC3BEB800592668 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */; };
 		333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B77EA2BC5BED500592668 /* StockDataView.swift */; };
+		335126442BCEDF5A000A1F8B /* SuccessSellSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335126432BCEDF5A000A1F8B /* SuccessSellSheet.swift */; };
 		33570CE42BC66DDA00AFCBF8 /* AutocompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */; };
 		33570CE62BC66FED00AFCBF8 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */; };
 		33570CE82BC8636A00AFCBF8 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */; };
@@ -89,6 +90,7 @@
 		333B77E42BC3A88900592668 /* favorites.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favorites.service.swift; sourceTree = "<group>"; };
 		333B77E62BC3BEB800592668 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		333B77EA2BC5BED500592668 /* StockDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataView.swift; sourceTree = "<group>"; };
+		335126432BCEDF5A000A1F8B /* SuccessSellSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessSellSheet.swift; sourceTree = "<group>"; };
 		33570CE32BC66DDA00AFCBF8 /* AutocompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteViewModel.swift; sourceTree = "<group>"; };
 		33570CE52BC66FED00AFCBF8 /* AutocompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteView.swift; sourceTree = "<group>"; };
 		33570CE72BC8636A00AFCBF8 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				33570CEF2BCA1E9400AFCBF8 /* NewsDetailSheet.swift */,
 				33570CF12BCAC9F600AFCBF8 /* TradeSheet.swift */,
 				3363F4572BCB7FEB008D84EA /* SuccessBuySheet.swift */,
+				335126432BCEDF5A000A1F8B /* SuccessSellSheet.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				33570CEA2BC8DA0100AFCBF8 /* Highchart.swift in Sources */,
 				332EE7D72BC193AC00F93DB8 /* HomepageView.swift in Sources */,
 				332EE7EE2BC208F600F93DB8 /* Details.swift in Sources */,
+				335126442BCEDF5A000A1F8B /* SuccessSellSheet.swift in Sources */,
 				333B77EB2BC5BED500592668 /* StockDataView.swift in Sources */,
 				33570CE42BC66DDA00AFCBF8 /* AutocompleteViewModel.swift in Sources */,
 				332EE7D82BC19A2600F93DB8 /* ContentView.swift in Sources */,

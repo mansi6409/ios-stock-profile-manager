@@ -140,6 +140,35 @@ class PortfolioService: ObservableObject {
         }
     }
     
+    func removePortfolioRecord(symbol: String) {
+        let url = "\(baseUrl)/removeportfoliorecord?symbol=\(symbol)"
+        AF.request(url).validate().responseDecodable(of: [PortfolioRecord].self){ response in
+            switch response.result {
+                case .success(let value):
+                    var updatedRecords: [PortfolioRecord] = []
+                    
+                    let dispatchGroup = DispatchGroup()
+                    
+                    value.forEach { record in
+                        dispatchGroup.enter()
+                        
+                        self.fetchDetailsForPortfolioRecords(record) { updatedRecord in
+                                // Update the record with the new data
+                            updatedRecords.append(updatedRecord)
+                            dispatchGroup.leave()
+                        }
+                    }
+                    
+                    dispatchGroup.notify(queue: .main) {
+                            // Update the entire array and notify observers
+                        self.portfolioRecordsData = updatedRecords
+                    }
+                case .failure(let error):
+                    print("remove from portfolio \(error)")
+            }
+        }
+    }
+    
     func getPortfolio() {
         let url = "\(baseUrl)/getportfolio"
         AF.request(url).validate().responseDecodable(of: [PortfolioRecord].self) { response in

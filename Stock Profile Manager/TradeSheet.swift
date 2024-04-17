@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TradeSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var numberOfShares: String = ""
+    @Binding var numberOfShares: String
     @State  var availableFunds: Double// Replace with actual funds value
         //var availableFunds: Double // This will be passed when initiating the sheet
     @State  var companyName: String // The company name to trade
@@ -14,11 +14,12 @@ struct TradeSheetView: View {
     @State private var showErrorToast: Bool = false
     @State private var keyboardHeight: CGFloat = 0
     @State var companyDetails: Details?
-//    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
+        //    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
     @Environment(PortfolioViewModel.self) var portfolioViewModel
-    @State var showBuySuccessSheet: Bool = false
     @Binding var showingTradeSheet: Bool
-    
+    @Binding var showSellSuccessSheet: Bool
+    @Binding var showBuySuccessSheet: Bool
+    @Binding var allSharesSold: Bool
     
     var calculatedTotal: Double {
         if let numberOfSharesDouble = Double(numberOfShares) {
@@ -49,12 +50,14 @@ struct TradeSheetView: View {
                        let shares = Double(numberOfShares){
                         if (ownedShares == 0){
                             portfolioViewModel.addPortfolioRecord(symbol: ticker, quantity: shares, price: calculatedTotal)
+                            showingTradeSheet = false
                             showBuySuccessSheet = true
-//                            portfolioViewModel.refreshData()
+                                //                            portfolioViewModel.refreshData()
                         } else {
                             portfolioViewModel.updatePortfolioRecord(symbol: ticker, quantity: (ownedShares + shares), price: calculatedTotal)
+                            showingTradeSheet = false
                             showBuySuccessSheet = true
-//                            portfolioViewModel.refreshData()
+                                //                            portfolioViewModel.refreshData()
                         }
                     }
                 }
@@ -62,7 +65,20 @@ struct TradeSheetView: View {
                 if let sharesToSell = Double(numberOfShares), sharesToSell > ownedShares{
                     showError(with: "Not enough shares to sell")
                 } else {
-                        // Proceed with selling logic
+                    if let ticker = companyDetails?.ticker,
+                       let shares = Double(numberOfShares){
+                        if (Double(ownedShares) == Double(numberOfShares)){
+                            portfolioViewModel.removePortfolioRecord(symbol: ticker)
+                            showingTradeSheet = false
+                            showSellSuccessSheet = true
+                            allSharesSold = true
+                        } else {
+                            portfolioViewModel.updatePortfolioRecord(symbol: ticker, quantity: (ownedShares - shares), price: calculatedTotal)
+                            showingTradeSheet = false
+                            showSellSuccessSheet = true
+                            allSharesSold = false
+                        }
+                    }
                 }
         }
             //        showErrorToast = !toastMessage.isEmpty
@@ -157,9 +173,12 @@ struct TradeSheetView: View {
             .padding()
             .navigationBarHidden(true)
             .toast(isPresented: $showErrorToast, message: toastMessage)
-            .sheet(isPresented: $showBuySuccessSheet) {
-                SuccessBuySheet(sharesBought: numberOfShares, companyName: companyName, showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
-            }
+//            .sheet(isPresented: $showBuySuccessSheet) {
+//                SuccessBuySheet(sharesBought: $numberOfShares, companyName: companyName, showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
+//            }
+//            .sheet(isPresented: $showSellSuccessSheet){
+//                SuccessSellSheet(sharesSold: $numberOfShares, companyName: companyName, showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet)
+//            }
                 //            .padding(.bottom, keyboardHeight) // Use the keyboard height to adjust padding
                 //            .onAppear {
                 //                NotificationCenter.default.addObserver(
@@ -185,6 +204,10 @@ struct TradeSheetView: View {
                 //                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
                 //            }
         }
+        .onDisappear {
+                // Reset the number of shares when the view disappears
+            numberOfShares = ""
+        }
         .padding()
         
         
@@ -207,16 +230,10 @@ struct FilledButtonStyle: ButtonStyle {
 }
 
 #Preview {
-    TradeSheetView(availableFunds: 0, companyName: "", pricePerShare: 0, ownedShares: 0, showingTradeSheet: .constant(true))
+    TradeSheetView(numberOfShares: .constant(""),availableFunds: 0,  companyName: "", pricePerShare: 0, ownedShares: 0, showingTradeSheet: .constant(true), showSellSuccessSheet: .constant(true), showBuySuccessSheet: .constant(true), allSharesSold: .constant(false))
         .environment(PortfolioViewModel())
 }
 
-//struct TradeSheetView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TradeSheetView(availableFunds: 0, companyName: "", pricePerShare: 0, ownedShares: 0, showingTradeSheet: .constant(true))
-//            .environment(PortfolioViewModel())
-//    }
-//}
 extension View {
     func equalSizes() -> some View {
         self.modifier(EqualSizesModifier())

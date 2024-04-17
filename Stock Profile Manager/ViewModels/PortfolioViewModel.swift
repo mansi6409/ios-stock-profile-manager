@@ -75,6 +75,10 @@ class PortfolioViewModel {
         service.updatePortfolioRecord(symbol: symbol, quantity: quantity, price: price)
     }
     
+    func removePortfolioRecord(symbol: String) {
+        service.removePortfolioRecord(symbol: symbol)
+    }
+    
     func getPortfolio() {
         service.getPortfolio()
     }

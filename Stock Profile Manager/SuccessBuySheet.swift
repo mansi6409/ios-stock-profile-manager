@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SuccessBuySheet: View {
-    @State var sharesBought: String
+    @Binding var sharesBought: String
     @State var companyName: String
     @Binding var showBuySuccessSheet: Bool
     @Binding var showingTradeSheet: Bool
@@ -37,5 +37,5 @@ struct SuccessBuySheet: View {
 
 
 #Preview {
-    SuccessBuySheet(sharesBought: "", companyName: "", showBuySuccessSheet: .constant(true), showingTradeSheet: .constant(true))
+    SuccessBuySheet(sharesBought: .constant(""), companyName: "", showBuySuccessSheet: .constant(true), showingTradeSheet: .constant(true))
 }
