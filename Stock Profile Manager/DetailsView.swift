@@ -14,6 +14,8 @@ struct DetailsView: View {
 //    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
     @Environment(PortfolioViewModel.self) var portfolioViewModel
     @ObservedObject private var favoritesViewModel = FavoritesViewModel()
+    @State private var isFavorite: Bool = false
+
     
     var body: some View {
         List{
@@ -59,8 +61,15 @@ struct DetailsView: View {
                 }
                 .padding()
                 ForEach(portfolioViewModel.portfolioRecordsData.indices, id: \.self) { index in
-                    NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol)
-                        .environment(viewModel)) {
+                    NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol, isFavorite: .constant(false))
+                        .environment(viewModel).navigationBarItems(trailing: Button(action: {
+                            isFavorite.toggle()
+                                // Call your backend function depending on the isFavorite state
+                        }) {
+                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
+                                .imageScale(.large)
+                                .foregroundColor(.blue)
+                        })) {
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -91,7 +100,7 @@ struct DetailsView: View {
                             //                    RightAlignedDivider()
                     }
                 }
-                .onDelete(perform: deletePortfolioItem)
+//                .onDelete(perform: deletePortfolioItem)
                 .onMove(perform: movePortfolioItem)
 
             }
@@ -99,8 +108,16 @@ struct DetailsView: View {
             
             Section(header: Text("FAVORITES")) {
                 ForEach(favoritesViewModel.favoritesEntries.indices, id: \.self) { index in
-                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol)
-                        .environment(viewModel)) {
+                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol, isFavorite: .constant(true))
+                        .environment(viewModel)
+                        .navigationBarItems(trailing: Button(action: {
+                            isFavorite.toggle()
+                                // Call your backend function depending on the isFavorite state
+                        }) {
+                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
+                                .imageScale(.large)
+                                .foregroundColor(.blue)
+                        })) {
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -166,18 +183,23 @@ struct DetailsView: View {
         return formatter.string(from: Date())
     }
     
-    func deletePortfolioItem(at offsets: IndexSet) {
-            // Remove the item from the portfolio records
-//        portfolioViewModel.portfolioRecordsData.remove(atOffsets: offsets)
-        print("i am trying to delete portfolio item")
-        print(offsets)
-    }
-    
     func deleteFavoriteItem(at offsets: IndexSet) {
             // Remove the item from the favorites entries
 //        favoritesViewModel.favoritesEntries.remove(atOffsets: offsets)
         print("i am trying to delete fav item")
-        print(offsets)
+//        print(offsets)
+        let symbolsToDelete = offsets.map { favoritesViewModel.favoritesEntries[$0].symbol }
+        for symbol in symbolsToDelete {
+            print("Deleting item with symbol: \(symbol)")
+                // Assuming you have a function to handle the deletion by symbol
+            deleteItemBySymbol(symbol)
+        }
+    }
+    
+    private func deleteItemBySymbol(_ symbol: String) {
+            // Your code to handle deletion by symbol, maybe updating the backend or local storage
+        print("Remove the item with symbol: \(symbol) from backend or database")
+        favoritesViewModel.removeFromFavorites(symbol: symbol)
     }
     
     private func movePortfolioItem(from source: IndexSet, to destination: Int) {

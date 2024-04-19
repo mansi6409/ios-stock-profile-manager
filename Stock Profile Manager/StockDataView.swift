@@ -24,6 +24,10 @@ struct StockDataView: View {
     @State var allSharesSold: Bool = false
     @State var shouldCloseToHome = false
     @State var sellClosed = false
+//    @State private var isFavorite: Bool = false    
+    @Binding var isFavorite: Bool
+
+
     
         //    private var ownedShares: Double
     
@@ -258,7 +262,7 @@ struct StockDataView: View {
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack {
                                             ForEach(viewModel.companyInfo?.peers ?? [], id: \.self) { peer in
-                                                NavigationLink(destination: StockDataView(symbol: peer)
+                                                NavigationLink(destination: StockDataView(symbol: peer, isFavorite: .constant(false))
                                                     .environment(viewModel)
                                                 ) {
                                                     Text(peer)
@@ -318,6 +322,15 @@ struct StockDataView: View {
         } // scroll view ened
         .onAppear {
             viewModel.searchString = symbol
+        }
+        .onChange(of: isFavorite) { newValue in
+            if newValue {
+                    // Perform an action when it becomes a favorite
+                print("Added to favorites")
+            } else {
+                print("Removed from favorites")
+                    // Perform an action when it's not a favorite anymore
+            }
         }
     } // view ended
     private func clearSelection() {
@@ -526,7 +539,7 @@ struct SmallNewsItemView: View {
 
 
 #Preview {
-    StockDataView(symbol: "")
+    StockDataView(symbol: "", isFavorite: .constant(false))
         .environment(PortfolioViewModel())
         .environment(DetailsViewModel())
 }

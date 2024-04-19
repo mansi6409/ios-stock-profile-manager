@@ -35,7 +35,7 @@ struct AutocompleteView: View {
     }
     
     private func searchResultRow(for result: AutocompleteData) -> some View {
-        NavigationLink(destination: StockDataView( symbol: result.displaySymbol)                        .environment(detailsViewModel)
+        NavigationLink(destination: StockDataView( symbol: result.displaySymbol, isFavorite: .constant(false))                        .environment(detailsViewModel)
         ) {
             Text("\(result.displaySymbol) - \(result.description)")
         }

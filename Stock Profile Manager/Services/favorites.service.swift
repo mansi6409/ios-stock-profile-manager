@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 import Combine
 
-struct FavoriteEntry:  Decodable, Identifiable {
+struct FavoriteEntry:  Codable, Identifiable {
     let id = UUID()
     var symbol: String
     var companyName: String?
@@ -55,29 +55,98 @@ class FavoritesService {
         let url = "\(baseUrl)/addwatchlist"
         AF.request(url, parameters: ["symbol": symbol]).responseJSON { response in
             switch response.result {
-                case .success(_):
+                case .success(let value):
+                    var updatedRecords: [FavoriteEntry] = []
+                    
+                    let dispatchGroup = DispatchGroup()
+                    (value as? [FavoriteEntry])!.forEach { record in
+                        dispatchGroup.enter()
+                        
+                        self.fetchDetailsForFavoriteRecords(record: record) { updatedRecord in
+                                // Update the record with the new data
+                            updatedRecords.append(updatedRecord)
+                            dispatchGroup.leave()
+                        }
+                    }
+                    dispatchGroup.notify(queue: .main) {
+                            // Update the entire array and notify observers
+                        self.favoritesEntries = updatedRecords
+                    }
                     completion(true)
                 case .failure(let error):
                     print("Error adding to favorites: \(error)")
                     completion(false)
+                    
             }
         }
     }
     
         // Remove from favorites
+//    func removeFromFavorites(symbol: String, completion: @escaping (Bool) -> Void) {
+//        let url = "\(baseUrl)/removewatchlist"
+//        AF.request(url, parameters: ["symbol": symbol]).responseJSON { response in
+//            switch response.result {
+//                case .success(let value):
+//                    var updatedRecords: [FavoriteEntry] = []
+//                    
+//                    let dispatchGroup = DispatchGroup()
+//                    (value as? [FavoriteEntry])!.forEach { record in
+//                        dispatchGroup.enter()
+//                        
+//                        self.fetchDetailsForFavoriteRecords(record: record) { updatedRecord in
+//                                // Update the record with the new data
+//                            updatedRecords.append(updatedRecord)
+//                            dispatchGroup.leave()
+//                        }
+//                    }
+//                    dispatchGroup.notify(queue: .main) {
+//                            // Update the entire array and notify observers
+//                        self.favoritesEntries = updatedRecords
+//                    }
+//                    completion(true)
+//                case .failure(let error):
+//                    print("Error removing from favorites: \(error)")
+//                    completion(false)
+//            }
+//        }
+//    }
+    
     func removeFromFavorites(symbol: String, completion: @escaping (Bool) -> Void) {
         let url = "\(baseUrl)/removewatchlist"
         AF.request(url, parameters: ["symbol": symbol]).responseJSON { response in
             switch response.result {
-                case .success(_):
-                    self.favoritesEntries.removeAll { $0.symbol == symbol }
-                    completion(true)
+                case .success(let value):
+                    guard let jsonData = try? JSONSerialization.data(withJSONObject: value, options: []) else {
+                        completion(false)
+                        return
+                    }
+                    do {
+                        let decoder = JSONDecoder()
+                        let updatedRecords = try decoder.decode([FavoriteEntry].self, from: jsonData)
+                        let dispatchGroup = DispatchGroup()
+                        var finalRecords: [FavoriteEntry] = []
+                        for record in updatedRecords {
+                            dispatchGroup.enter()
+                            self.fetchDetailsForFavoriteRecords(record: record) { updatedRecord in
+                                finalRecords.append(updatedRecord)
+                                dispatchGroup.leave()
+                            }
+                        }
+                        dispatchGroup.notify(queue: .main) {
+                            self.favoritesEntries = finalRecords
+                            completion(true)
+                        }
+                    } catch {
+                        print("Decoding error: \(error)")
+                        completion(false)
+                    }
                 case .failure(let error):
                     print("Error removing from favorites: \(error)")
                     completion(false)
             }
         }
     }
+
     
         // Fetch detailed favorites data
     func getFavoritesData() {
