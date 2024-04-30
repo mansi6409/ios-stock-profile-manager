@@ -1,9 +1,9 @@
-//
-//  Stock_Profile_ManagerApp.swift
-//  Stock Profile Manager
-//
-//  Created by Mansi Garg on 4/3/24.
-//
+    //
+    //  Stock_Profile_ManagerApp.swift
+    //  Stock Profile Manager
+    //
+    //  Created by Mansi Garg on 4/3/24.
+    //
 
 import SwiftUI
 
@@ -12,7 +12,8 @@ struct Stock_Profile_ManagerApp: App {
     @State private var showSplashScreen = true
     
     @State var portfolioViewModel = PortfolioViewModel()
-
+    @State var favoritesViewModel = FavoritesViewModel()
+    
     var body: some Scene {
         WindowGroup {
             if showSplashScreen {
@@ -20,12 +21,13 @@ struct Stock_Profile_ManagerApp: App {
                     .onAppear{
                         DispatchQueue.main.asyncAfter(deadline: .now() + 4)
                         {
-                            showSplashScreen = false
+                        showSplashScreen = false
                         }
                     }
             } else {
                 ContentView()
-                .environment(portfolioViewModel)
+                    .environment(portfolioViewModel)
+                    .environment(favoritesViewModel)
             }
         }
     }

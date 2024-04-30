@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(PortfolioViewModel.self) var portfolioViewModel
+    @Environment(FavoritesViewModel.self) var favoritesViewModel
 
     var body: some View {
 //        VStack(alignment: .leading) {
@@ -34,4 +35,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(PortfolioViewModel())
+        .environment(FavoritesViewModel())
 }

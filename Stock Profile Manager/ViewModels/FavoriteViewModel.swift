@@ -8,10 +8,11 @@
 import Foundation
 import Combine
 
+@Observable
 class FavoritesViewModel: ObservableObject {
-    @Published var favoritesEntries: [FavoriteEntry] = []
-    @Published var isLoading = false
-    @Published var errorMessage: String?
+    var favoritesEntries: [FavoriteEntry] = []
+    var isLoading = false
+    var errorMessage: String?
     
     private var service = FavoritesService()
     private var cancellables = Set<AnyCancellable>()

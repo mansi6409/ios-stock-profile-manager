@@ -13,8 +13,8 @@ struct DetailsView: View {
 
 //    @ObservedObject private var portfolioViewModel = PortfolioViewModel()
     @Environment(PortfolioViewModel.self) var portfolioViewModel
-    @ObservedObject private var favoritesViewModel = FavoritesViewModel()
-    @State private var isFavorite: Bool = false
+    @Environment(FavoritesViewModel.self) var favoritesViewModel
+//    @State private var isFavorite: Bool = false
 
     
     var body: some View {
@@ -61,15 +61,22 @@ struct DetailsView: View {
                 }
                 .padding()
                 ForEach(portfolioViewModel.portfolioRecordsData.indices, id: \.self) { index in
-                    NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol, isFavorite: .constant(false))
-                        .environment(viewModel).navigationBarItems(trailing: Button(action: {
-                            isFavorite.toggle()
-                                // Call your backend function depending on the isFavorite state
-                        }) {
-                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
-                                .imageScale(.large)
-                                .foregroundColor(.blue)
-                        })) {
+                    NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol)
+                        .environment(viewModel)
+//                        .navigationBarItems(trailing: Button(action: {
+//                            isFavorite.toggle()
+//                            if isFavorite {
+//                                favoritesViewModel.addToFavorites(symbol: favoritesViewModel.favoritesEntries[index].symbol)
+//                            } else {
+//                                favoritesViewModel.removeFromFavorites(symbol: favoritesViewModel.favoritesEntries[index].symbol)
+//                            }
+//                                // Call your backend function depending on the isFavorite state
+//                        }) {
+//                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
+//                                .imageScale(.large)
+//                                .foregroundColor(.blue)
+//                        })
+                    ) {
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -108,16 +115,22 @@ struct DetailsView: View {
             
             Section(header: Text("FAVORITES")) {
                 ForEach(favoritesViewModel.favoritesEntries.indices, id: \.self) { index in
-                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol, isFavorite: .constant(true))
+                    NavigationLink(destination: StockDataView(symbol: favoritesViewModel.favoritesEntries[index].symbol)
                         .environment(viewModel)
-                        .navigationBarItems(trailing: Button(action: {
-                            isFavorite.toggle()
-                                // Call your backend function depending on the isFavorite state
-                        }) {
-                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
-                                .imageScale(.large)
-                                .foregroundColor(.blue)
-                        })) {
+//                        .navigationBarItems(trailing: Button(action: {
+//                            isFavorite.toggle()
+//                            if isFavorite {
+//                                favoritesViewModel.addToFavorites(symbol: favoritesViewModel.favoritesEntries[index].symbol)
+//                            } else {
+//                                favoritesViewModel.removeFromFavorites(symbol: favoritesViewModel.favoritesEntries[index].symbol)
+//                            }
+//                                // Call your backend function depending on the isFavorite state
+//                        }) {
+//                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
+//                                .imageScale(.large)
+//                                .foregroundColor(.blue)
+//                        })
+                    ) {
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -219,6 +232,7 @@ struct DetailsView: View {
         DetailsView()
             .environment(PortfolioViewModel())
             .environment(DetailsViewModel())
+            .environment(FavoritesViewModel())
     }
 
 //struct DetailsView_Previews: PreviewProvider {

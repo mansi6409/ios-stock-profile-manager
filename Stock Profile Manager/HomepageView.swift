@@ -11,8 +11,9 @@ struct HomepageView: View {
     @State private var searchString = ""
     @State var detailsViewModel = DetailsViewModel()
     @StateObject private var autocompleteViewModel = AutocompleteViewModel()
+    @Environment(FavoritesViewModel.self) var favoritesViewModel
     @Environment(PortfolioViewModel.self) var portfolioViewModel
-
+    
     @State private var isSearching = false
     
     var body: some View {
@@ -24,12 +25,13 @@ struct HomepageView: View {
                         .navigationBarItems(trailing: EditButton())
                         .environment(detailsViewModel)
                         .environment(portfolioViewModel)
-
+                        .environment(favoritesViewModel)
+                    
                 } else {
                     AutocompleteView(searchText: $searchString, viewModel: autocompleteViewModel)
                         .environment(detailsViewModel)
                         .navigationBarTitleDisplayMode(.inline)
-
+                    
                 }
             }
             .searchable(text: $searchString, prompt: "Search for stocks")
@@ -46,4 +48,5 @@ struct HomepageView: View {
 #Preview {
     HomepageView()
         .environment(PortfolioViewModel())
+        .environment(FavoritesViewModel())
 }

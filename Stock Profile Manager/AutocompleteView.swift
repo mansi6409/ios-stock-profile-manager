@@ -9,21 +9,21 @@ import SwiftUI
 
 struct AutocompleteView: View {
     @Binding var searchText: String
-//    @Binding var isSearching: Bool
-
+        //    @Binding var isSearching: Bool
+    
     @ObservedObject var viewModel = AutocompleteViewModel()
     @Environment(DetailsViewModel.self) var detailsViewModel
-
+    
     var body: some View {
-//        NavigationView {
-            searchResultsList
-                //                .navigationBarTitle("Search Stocks", displayMode: .inline)
-//                .searchable(text: $searchText, prompt: "Search for stocks")
-////                .onChange(of: searchText, perform: viewModel.fetchAutocompleteData)
-//                .background(Color(.systemGroupedBackground))
-//                .navigationTitle("Stocks")
-
-//        }
+            //        NavigationView {
+        searchResultsList
+            //                .navigationBarTitle("Search Stocks", displayMode: .inline)
+            //                .searchable(text: $searchText, prompt: "Search for stocks")
+            ////                .onChange(of: searchText, perform: viewModel.fetchAutocompleteData)
+            //                .background(Color(.systemGroupedBackground))
+            //                .navigationTitle("Stocks")
+        
+            //        }
     }
     
     private var searchResultsList: some View {
@@ -35,7 +35,7 @@ struct AutocompleteView: View {
     }
     
     private func searchResultRow(for result: AutocompleteData) -> some View {
-        NavigationLink(destination: StockDataView( symbol: result.displaySymbol, isFavorite: .constant(false))                        .environment(detailsViewModel)
+        NavigationLink(destination: StockDataView( symbol: result.displaySymbol)            .environment(detailsViewModel)
         ) {
             Text("\(result.displaySymbol) - \(result.description)")
         }
@@ -46,5 +46,5 @@ struct AutocompleteView: View {
 #Preview {
     AutocompleteView(searchText: .constant(""))
         .environment(DetailsViewModel()
-)
+        )
 }
