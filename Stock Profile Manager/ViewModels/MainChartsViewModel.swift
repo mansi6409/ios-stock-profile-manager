@@ -30,6 +30,28 @@ struct Trends: Decodable {
     let symbol: String
 }
 
+struct Sentiments: Decodable {
+    let symbol: String
+    let year: Double
+    let month: Double
+    let change: Double
+    let mspr: Double
+}
+
+struct SentimentsResponse: Decodable {
+    let data: [Sentiments]
+    let symbol: String
+}
+
+struct SentimentsAggregate: Decodable {
+    var mt: Double = 0
+    var mp: Double = 0
+    var mn: Double = 0
+    var ct: Double = 0
+    var cp: Double = 0
+    var cn: Double = 0
+}
+
 //struct History: Decodable {
 //    let v: Double
 //    let vw: Double
@@ -63,6 +85,8 @@ class ChartsModel {
     var surprise: [Double] = []
     var actual: [Double] = []
     var estimate: [Double] = []
+    var sentiments: [Sentiments] = []
+    var sentimentsAggregate = SentimentsAggregate()
     
     let currentDate = Date()
     
@@ -195,5 +219,49 @@ class ChartsModel {
         }
     }
     
+    func fetchSentiments(symbol: String, completion: @escaping () -> Void){
+        AF.request("\(baseUrl)/insiderSentiment?symbol=\(symbol)").responseDecodable(of: SentimentsResponse.self) { response in
+            switch response.result {
+                case .success(let value):
+                    self.sentiments = value.data
+                    self.setAggregates(response: self.sentiments)
+                    completion()
+                    
+                case .failure(let error):
+                    print("Error in fetching sentiments \(error)")
+            }
+        }
+    }
+    
+    func setAggregates(response: [Sentiments]) {
+        var agg = SentimentsAggregate ()
+        
+        for item in response {
+                // Update total changes
+            agg.ct += item.change
+            
+                // Update mspr aggregate
+            agg.mt += item.mspr
+            agg.mt = round(agg.mt * 100) / 100  // Round to 2 decimal places
+            
+            if item.change > 0 {
+                agg.cp += item.change
+                agg.cp = round(agg.cp * 100) / 100  // Round to 2 decimal places
+            } else {
+                agg.cn += item.change
+                agg.cn = round(agg.cn * 100) / 100  // Round to 2 decimal places
+            }
+            
+            if item.mspr > 0 {
+                agg.mp += item.mspr
+                agg.mp = round(agg.mp * 100) / 100  // Round to 2 decimal places
+            } else {
+                agg.mn += item.mspr
+                agg.mn = round(agg.mn * 100) / 100  // Round to 2 decimal places
+            }
+        }
+        
+        self.sentimentsAggregate = agg
+    }
 }
 

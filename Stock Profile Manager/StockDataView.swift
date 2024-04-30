@@ -252,7 +252,17 @@ struct StockDataView: View {
     }
     
     private var insightsView: some View {
-        InsightsView(symbol: symbol)
+            VStack(alignment: .leading) {
+                Text("Insights")
+                    .bold()
+                    .font(.title2)
+                InsightsTableView(symbol: symbol, companyName: (viewModel.companyInfo?.name ?? ""))
+//                    .frame(height: 400)
+                RecommendationTrendsView(ticker: symbol)
+                    .frame(height: 400)
+                EPSSurpriseView(ticker: symbol)
+                    .frame(height: 400)
+            }
     }
     
     private var companyInfoView: some View {
@@ -365,20 +375,22 @@ struct StatsView: View {
     }
 }
 
-struct InsightsView: View {
-    let symbol: String
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Insights")
-                .bold()
-                .font(.title2)
-            RecommendationTrendsView(ticker: symbol)
-                .frame(height: 400)
-            EPSSurpriseView(ticker: symbol)
-                .frame(height: 400)
-        }
-    }
-}
+//struct InsightsView: View {
+//    let symbol: String
+//    var body: some View {
+//        VStack(alignment: .leading) {
+//            Text("Insights")
+//                .bold()
+//                .font(.title2)
+//            InsightsTableView(symbol: symbol, companyName: viewModel.companyInfo?.name)
+//                .frame(height: 400)
+//            RecommendationTrendsView(ticker: symbol)
+//                .frame(height: 400)
+//            EPSSurpriseView(ticker: symbol)
+//                .frame(height: 400)
+//        }
+//    }
+//}
 
 //struct ChartsView: View {
 //    let stockDetails: StockPriceDetails?

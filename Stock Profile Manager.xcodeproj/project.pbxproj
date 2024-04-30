@@ -47,6 +47,7 @@
 		33833D082BE07DB700C19708 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33833D072BE07DB700C19708 /* HourlyView.swift */; };
 		33833D0A2BE07E0100C19708 /* HistoricalChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33833D092BE07E0100C19708 /* HistoricalChartView.swift */; };
 		33833D0C2BE16B8D00C19708 /* MainHighchartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33833D0B2BE16B8D00C19708 /* MainHighchartsView.swift */; };
+		33833D0E2BE1AA7E00C19708 /* InsightsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33833D0D2BE1AA7E00C19708 /* InsightsTableView.swift */; };
 		49CF3F42320E0639BEF0161C /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE898823AAEDA75F8052ABC /* Pods_Stock_Profile_Manager_Stock_Profile_ManagerUITests.framework */; };
 		5C35376FCB0E8AE076A36464 /* Pods_Stock_Profile_ManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */; };
 /* End PBXBuildFile section */
@@ -112,6 +113,7 @@
 		33833D072BE07DB700C19708 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
 		33833D092BE07E0100C19708 /* HistoricalChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalChartView.swift; sourceTree = "<group>"; };
 		33833D0B2BE16B8D00C19708 /* MainHighchartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHighchartsView.swift; sourceTree = "<group>"; };
+		33833D0D2BE1AA7E00C19708 /* InsightsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTableView.swift; sourceTree = "<group>"; };
 		34FDD1FC7269D3022D3993D3 /* Pods_Stock_Profile_ManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Profile_ManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520A9A67973E6CB34E322A1F /* Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; path = "Target Support Files/Pods-Stock Profile Manager-Stock Profile ManagerUITests/Pods-Stock Profile Manager-Stock Profile ManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6CFC73BD253641E905B2F739 /* Pods-Stock Profile ManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Profile ManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-Stock Profile ManagerTests/Pods-Stock Profile ManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				33833D072BE07DB700C19708 /* HourlyView.swift */,
 				33833D092BE07E0100C19708 /* HistoricalChartView.swift */,
 				33833D0B2BE16B8D00C19708 /* MainHighchartsView.swift */,
+				33833D0D2BE1AA7E00C19708 /* InsightsTableView.swift */,
 			);
 			path = "Stock Profile Manager";
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				330817762BC37B71003D669A /* Peers.swift in Sources */,
 				33570CF02BCA1E9400AFCBF8 /* NewsDetailSheet.swift in Sources */,
 				33833D0A2BE07E0100C19708 /* HistoricalChartView.swift in Sources */,
+				33833D0E2BE1AA7E00C19708 /* InsightsTableView.swift in Sources */,
 				33833CFE2BE0768100C19708 /* MainChartsViewModel.swift in Sources */,
 				3363F4582BCB7FEB008D84EA /* SuccessBuySheet.swift in Sources */,
 				332EE7E92BC1D81200F93DB8 /* stocksearch.service.swift in Sources */,
