@@ -16,6 +16,7 @@ struct StockDataView: View {
     @State private var shouldCloseToHome = false
     @State private var sellClosed = false
     @State private var isFavorite: Bool = false
+    @State private var showHourly = true
     
     var body: some View {
             //        NavigationView {
@@ -32,6 +33,7 @@ struct StockDataView: View {
                 }  else {
                     VStack(alignment: .leading){
                         stockInfoSection
+                        chartsView
                         portfolioInfoSection
                         statsView
                         companyInfoView
@@ -196,6 +198,55 @@ struct StockDataView: View {
         }
     }
     
+    private var chartsView: some View {
+        HStack {
+            VStack {
+                HStack {
+                    if (showHourly) {
+                        let color = ((viewModel.stockPriceDetails?.d ?? 0) > 0 ? "green" : ((viewModel.stockPriceDetails?.d ?? 0) < 0 ? "red" : "gray"))
+                        HourlyView(ticker: symbol, color: color)
+                            .frame(height: 410)
+                    }
+                    else {
+                        HistoricalChartView(ticker: symbol)
+                            .frame(height: 410)
+                    }
+                }
+                Divider()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        showHourly = true
+                    }) {
+                        VStack {
+                            Image(systemName: "chart.xyaxis.line")
+                                .font(.title2)
+                            Text ("Hourly")
+                                .font(.caption2)
+                        }
+                    }
+                    .foregroundColor(showHourly ? .blue : .gray)
+                    .padding()
+                    Spacer()
+                    Spacer()
+                    Button(action: {
+                        showHourly = false
+                    }) {
+                        VStack {
+                            Image(systemName: "clock.fill")
+                                .font(.title2)
+                            Text("Historical")
+                                .font(.caption2)
+                        }
+                    }
+                    .foregroundColor(showHourly ? .gray : .blue)
+                    .padding()
+                    Spacer()
+                }
+            }
+        }
+    }
+    
     private var statsView: some View {
         StatsView(stockDetails: viewModel.stockPriceDetails)
     }
@@ -328,6 +379,60 @@ struct InsightsView: View {
         }
     }
 }
+
+//struct ChartsView: View {
+//    let stockDetails: StockPriceDetails?
+//    let symbol: String
+//    let showHourly: Bool
+//    var body: some View {
+//        HStack {
+//            VStack {
+//                HStack {
+//                    if (showHourly) {
+//                        let color = (stockDetails!.d! > 0 ? "green" : (stockDetails!.d! < 0 ? "red" : "gray"))
+//                        HourlyView(ticker: symbol, color: color)
+//                            .frame(height: 410)
+//                    }
+//                    else {
+//                        HistoricalChartView(ticker: symbol)
+//                            .frame(height: 410)
+//                    }
+//                }
+//                Divider()
+//                HStack {
+//                    Spacer()
+//                    Button(action: {
+//                        showHourly = true
+//                    }) {
+//                        VStack {
+//                            Image(systemName: "chart.xyaxis.line")
+//                                .font(.title2)
+//                            Text ("Hourly")
+//                                .font(.caption2)
+//                        }
+//                    }
+//                    .foregroundColor(showHourly ? .blue : .gray)
+//                    .padding()
+//                    Spacer()
+//                    Spacer()
+//                    Button(action: {
+//                        showHourly = false
+//                    }) {
+//                        VStack {
+//                            Image(systemName: "clock.fill")
+//                                .font(.title2)
+//                            Text("Historical")
+//                                .font(.caption2)
+//                        }
+//                    }
+//                    .foregroundColor(showHourly ? .gray : .blue)
+//                    .padding()
+//                    Spacer()
+//                }
+//            }
+//        }
+//    }
+//}
 
 struct CompanyInfoView: View {
     let company: Details?

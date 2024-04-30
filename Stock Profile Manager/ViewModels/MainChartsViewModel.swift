@@ -95,7 +95,7 @@ class ChartsModel {
         var dateComponents = DateComponents()
         dateComponents.day = -2
         let pastdate = formatDate(calendar.date(byAdding: dateComponents, to: Date()) ?? Date())
-        AF.request("\(baseUrl)/historytime?ticker=\(ticker)&pastdate=\(pastdate)&currentdate=\(currentdate)").responseDecodable(of: History.self) { response in
+        AF.request("\(baseUrl)/highchartsHourly?symbol=\(ticker)&fromDate=\(pastdate)&toDate=\(currentdate)").responseDecodable(of: History.self) { response in
             switch response.result {
                 case .success(let value):
                     self.timehistory = value
@@ -130,7 +130,7 @@ class ChartsModel {
         dateComponents.year = -2
         dateComponents.day = -1
         let pastdate = formatDate(calendar.date(byAdding: dateComponents, to: Date()) ?? Date())
-        AF.request("\(baseUrl)/history?symbol=\(ticker)&pastdate=\(pastdate)&currentdate=\(currentdate)").responseDecodable(of: History.self) { response in
+        AF.request("\(baseUrl)/history?symbol=\(ticker)&fromDate=\(pastdate)&toDate=\(currentdate)").responseDecodable(of: History.self) { response in
             switch response.result {
                 case .success(let value):
                     self.history = value
