@@ -35,6 +35,7 @@ struct StockDataView: View {
                         portfolioInfoSection
                         statsView
                         companyInfoView
+                        insightsView
                         newsSection
                     }
                 }
@@ -42,9 +43,9 @@ struct StockDataView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 15)
             .sheet(isPresented: $showingDetailSheet, onDismiss: clearSelection) {
-//                if let selectedNewsItem = selectedNewsItem {
-                    NewsDetailSheet(selectedNewsItem: self.$selectedNewsItem)
-//                }
+                    //                if let selectedNewsItem = selectedNewsItem {
+                NewsDetailSheet(selectedNewsItem: self.$selectedNewsItem)
+                    //                }
                     //                } else {
                     //                    Text("No News Item Selected")
                     //                }
@@ -199,6 +200,10 @@ struct StockDataView: View {
         StatsView(stockDetails: viewModel.stockPriceDetails)
     }
     
+    private var insightsView: some View {
+        InsightsView(symbol: symbol)
+    }
+    
     private var companyInfoView: some View {
         CompanyInfoView(company: viewModel.companyInfo)
     }
@@ -305,6 +310,21 @@ struct StatsView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+struct InsightsView: View {
+    let symbol: String
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Insights")
+                .bold()
+                .font(.title2)
+            RecommendationTrendsView(ticker: symbol)
+                .frame(height: 400)
+            EPSSurpriseView(ticker: symbol)
+                .frame(height: 400)
         }
     }
 }

@@ -1,0 +1,113 @@
+//
+//  EPSSurpriseView.swift
+//  Stock Profile Manager
+//
+//  Created by Mansi Garg on 4/29/24.
+//
+
+import SwiftUI
+
+struct EPSSurpriseView: View {
+    @State var chartsModel: ChartsModel = ChartsModel()
+    @State private var isLoading = false
+    var ticker: String = ""
+    init(ticker: String) {
+        self.ticker = ticker
+    }
+    
+    var highchartsContent: String {
+    """
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Highcharts Example</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <body>
+    <div id="container" style="height:400px"></div>
+    <script>
+    Highcharts.chart('container', {
+      chart: {
+          type: 'spline',
+      },
+      title: {
+          text: 'Historical EPS Surprises',
+          align: 'center'
+      },
+    
+      xAxis: {
+        categories: \(chartsModel.datessurprise),
+        accessibility: {
+            rangeDescription: 'Range: last 4 months'
+        },
+        maxPadding: 0.05,
+      },
+    
+      yAxis: {
+          title: {
+              text: 'Quaterly EPS'
+          },
+          labels: {
+              format: '{value}'
+          },
+          accessibility: {
+              rangeDescription: 'Range: 0 to 1'
+          },
+      },
+    
+      legend: {
+          enabled: true
+      },
+    
+      tooltip: {
+          headerFormat: '<b>{series.name}</b><br/>',
+          pointFormat: 'Earnings: {point.y}'
+      },
+    
+      plotOptions: {
+          spline: {
+              marker: {
+                  enabled: true
+              }
+          }
+      },
+    
+      series: [{
+        type: "spline",
+        name: 'Actual',
+        data: \(chartsModel.actual)
+      },{
+        type: "spline",
+        name: 'Estimate',
+        data: \(chartsModel.estimate)
+      }]
+    });
+    </script>
+    </body>
+    </html>
+    """
+    }
+    
+    var body: some View {
+        VStack {
+            if (isLoading == false) {
+                MainHighchartsView(htmlContent: highchartsContent)
+                    .edgesIgnoringSafeArea(.all)
+            }
+        }
+        .onAppear() {
+            isLoading = true
+            chartsModel.fetchEarnings(ticker: ticker)
+            {
+            isLoading = false
+            }
+        }
+    }
+}
+
+#Preview {
+    EPSSurpriseView(ticker: "TSLA")
+        .environment(ChartsModel())
+}
+
