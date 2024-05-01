@@ -22,7 +22,6 @@ struct InsightsTableView: View {
             VStack {
                 Text("Insider Sentiments")
                     .font(.title3)
-                    .bold()
                 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading, spacing: 5) {

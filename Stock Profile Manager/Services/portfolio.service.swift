@@ -222,6 +222,8 @@ class PortfolioService: ObservableObject {
                     dispatchGroup.notify(queue: .main) {
                             // Update the entire array and notify observers
                         self.portfolioRecordsData = updatedRecords
+                        self.netWorth = self.walletMoney + self.tempWorth
+                        self.tempWorth = 0
                     }
                     
                 case .failure(let error):
@@ -266,7 +268,6 @@ class PortfolioService: ObservableObject {
                         let totalValue = Float(portfolioRecord?.quantity ?? 0) * currentValueFloat
                         portfolioRecord?.totalValue = Double(totalValue)
                         self.tempWorth = self.tempWorth + Double(totalValue)
-                        self.netWorth = self.walletMoney + self.tempWorth
                         let averageCurrentCost = portfolioRecord!.cost / portfolioRecord!.quantity
                         let change = currentValueFloat - Float(averageCurrentCost)
                         portfolioRecord?.change = Double(change)
@@ -291,7 +292,7 @@ class PortfolioService: ObservableObject {
                 // Notify observers by re-assigning the array
                 //            self.portfolioRecordsData = self.portfolioRecordsData.map { $0 }
             completion(portfolioRecord!) // Assuming `portfolioRecord` is your updated record
-            self.tempWorth = 0
+//            self.tempWorth = 0
             
         }
     }

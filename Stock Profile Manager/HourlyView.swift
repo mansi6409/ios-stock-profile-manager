@@ -24,6 +24,9 @@ struct HourlyView: View {
     <head>
     <title>Highcharts Example</title>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     </head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <body>
@@ -32,7 +35,11 @@ struct HourlyView: View {
     Highcharts.chart('container', {
         title: {
         text: `\(self.ticker) Hourly Price Variation`,
-        align: 'center'
+        align: 'center',
+        style: {
+           color: "#808080",
+    fontWeight: "bold"
+    }
         },
         yAxis: {
         title: {
@@ -44,7 +51,8 @@ struct HourlyView: View {
         type: 'datetime',
         },
         tooltip: {
-          split: true
+          split: true,
+    crosshairs: true
         },
         plotOptions: {
         series: {

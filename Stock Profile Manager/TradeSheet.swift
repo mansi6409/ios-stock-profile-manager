@@ -119,12 +119,12 @@ struct TradeSheetView: View {
                 HStack {
                         // Number of Shares Text Field
                     TextField("0", text: $numberOfShares)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
                         .font(.system(size: 122)) // Increased font size
                         .multilineTextAlignment(.leading)
-                        .frame(height: 400) // Adjust height to fit the text
+//                        .frame(height: 400) // Adjust height to fit the text
                         //                        .padding(.trailing, 12)
-                        .padding(.bottom, 65)
+//                        .padding(.bottom, )
                     
                     Spacer() // Pushes the text field to the left and other content to the right
                     
@@ -143,9 +143,10 @@ struct TradeSheetView: View {
                     .frame(width: UIScreen.main.bounds.width * 0.5)
                 }
                 Spacer()
-                Text("$\(availableFunds, specifier: "%.2f") available to buy AAPL")
+                Text("$\(availableFunds, specifier: "%.2f") available to buy \(companyDetails?.ticker ?? "")")
                     .foregroundColor(.secondary)
-                Spacer()
+                    .padding(.top, 100)
+//                Spacer()
                 HStack(/*spacing: 20*/) {
                     Button("Buy") {
                         executeTrade(action: .buy)

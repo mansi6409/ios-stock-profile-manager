@@ -411,6 +411,7 @@ struct StatsView: View {
                             .bold()
                         Text("$\(stockDetails?.h ?? 0, specifier: "%.2f")")
                     }
+                    .padding(.bottom, 5)
                     HStack{
                         Text("Low Price: ")
                             .bold()
@@ -418,7 +419,7 @@ struct StatsView: View {
                     }
                     
                 }
-                .padding(.bottom, 14)
+//                .padding(.bottom, 14)
                 .font(.subheadline)
                 .padding(.trailing, 7)
                 VStack{
@@ -427,6 +428,7 @@ struct StatsView: View {
                             .bold()
                         Text("$\(stockDetails?.o ?? 0, specifier: "%.2f")")
                     }
+                    .padding(.bottom, 5)
                     
                     HStack{
                         Text("Prev. Close: ")
@@ -435,7 +437,7 @@ struct StatsView: View {
                     }
                 }
                 .font(.subheadline)
-                .padding(.bottom, 14)
+//                .padding(.bottom, 14)
             }
         }
         .padding()
@@ -447,51 +449,57 @@ struct CompanyInfoView: View {
     let symbol: String
     @Environment(DetailsViewModel.self) var viewModel
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("About")
-                .font(.system(size: 24))
-                .padding(.bottom, 8)
-            
-            HStack {
-                Text("IPO Start Date: ")
-                    .bold()
-                Text(viewModel.companyInfo?.ipo ?? "N/A")
-            }
-            
-            HStack {
-                Text("Industry: ")
-                    .bold()
-                Text(viewModel.companyInfo?.finnhubIndustry ?? "N/A")
-            }
-            
-            HStack {
-                Text("Webpage: ")
-                    .bold()
-                if let urlString = viewModel.companyInfo?.weburl, let url = URL(string: urlString) {
-                    Link("\(viewModel.companyInfo?.weburl ?? "")", destination: url)
-                } else {
-                    Text("N/A")
-                }
-            }
-            
-            HStack {
-                Text("Company Peers: ")
-                    .bold()
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(viewModel.companyInfo?.peers ?? [], id: \.self) { peer in
-                            NavigationLink(destination: StockDataView(symbol: peer)
-                                .environment(viewModel)
-                            ) {
-                                Text(peer)
-                                    .foregroundColor(.blue)
+        HStack {
+            VStack(alignment: .leading) {
+                Text("About")
+                    .font(.system(size: 24))
+                    .padding(.bottom, 8)
+                HStack{
+                    VStack(alignment: .leading) {
+                        Text("IPO Start Date: ")
+                            .bold()
+                        
+                        Text("Industry: ")
+                            .bold()
+                        Text("Webpage: ")
+                            .bold()
+                        Text("Company Peers: ")
+                            .bold()
+                    }
+                        //                .padding(.horizontal)
+                    
+                    VStack(alignment: .leading)  {
+                        
+                        Text(viewModel.companyInfo?.ipo ?? "N/A")
+                        Text(viewModel.companyInfo?.finnhubIndustry ?? "N/A")
+                        if let urlString = viewModel.companyInfo?.weburl, let url = URL(string: urlString) {
+                            Link("\(viewModel.companyInfo?.weburl ?? "")", destination: url)
+                        } else {
+                            Text("N/A")
+                        }
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(viewModel.companyInfo?.peers ?? [], id: \.self) { peer in
+                                    NavigationLink(destination: StockDataView(symbol: peer)
+                                        .environment(viewModel)
+                                    ) {
+                                        Text("\(peer),")
+                                            .foregroundColor(.blue)
+                                    }
+                                }
                             }
                         }
+                        .navigationBarTitle("\(symbol)")
+                        .navigationBarTitleDisplayMode(.inline)
+                        
+                        
                     }
+                    
                 }
-                .navigationBarTitle("\(symbol)")
-                .navigationBarTitleDisplayMode(.inline)
+                .font(.subheadline)
             }
+                //        .padding()
         }
         .padding()
     }

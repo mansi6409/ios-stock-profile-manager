@@ -15,6 +15,7 @@ struct AutocompleteData: Identifiable, Decodable {
     let id = UUID()
     let displaySymbol: String
     let description: String
+//    let type: String?
 }
 
 class StockSearchService: ObservableObject {
@@ -105,7 +106,10 @@ class StockSearchService: ObservableObject {
                         // Assuming the JSON response format is an array of objects
                     let items = json.arrayValue.filter { !$0["displaySymbol"].stringValue.contains(".") }
                     var uniqueSymbols = Set<String>()
-                    let uniqueItems = items.filter { uniqueSymbols.insert($0["displaySymbol"].stringValue).inserted }
+                    let uniqueItems = items
+                        .filter { $0["type"].stringValue == "Common Stock" } // Filter items with type "Common Stock"
+                        .filter { uniqueSymbols.insert($0["displaySymbol"].stringValue).inserted }
+                    
                     for item in uniqueItems as! [JSON] {
                         let displaySymbol = item["displaySymbol"].stringValue
                         let description = item["description"].stringValue
