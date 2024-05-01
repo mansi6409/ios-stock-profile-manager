@@ -72,7 +72,7 @@ struct StockDataView: View {
         VStack(alignment: .leading) {
             if let ticker = viewModel.companyInfo?.ticker {
                 Text(ticker)
-                    .font(.title)
+                    .font(.system(size: 28))
                     .bold()
                     .foregroundColor(.primary)
                     //                Spacer()
@@ -106,23 +106,33 @@ struct StockDataView: View {
                 HStack{
                     VStack(alignment: .leading, spacing: 5) {
                         Text("Portfolio")
-                            .bold()
-                            .font(.title)
+//                            .bold()
+                            .font(.system(size: 24))
+                            .padding(.bottom, 8)
                         HStack {
                             Text("Shares Owned: ")
                                 .bold()
                             Text("\(portfolioRecord.quantity, specifier: "%.0f")")
                         }
+                        .padding(.bottom, 8)
+                        .font(.subheadline)
+
                         HStack {
-                            Text("Avg. Cost / Share: ")
+                            Text("Avg. Cost/Share: ")
                                 .bold()
                             Text("$\(portfolioRecord.cost / portfolioRecord.quantity, specifier: "%.2f")")
                         }
+                        .padding(.bottom, 8)
+                        .font(.subheadline)
+
                         HStack {
                             Text("Total Cost: ")
                                 .bold()
                             Text("$\(portfolioRecord.cost, specifier: "%.2f")")
                         }
+                        .padding(.bottom, 8)
+                        .font(.subheadline)
+
                         HStack {
                             Text("Change: ")
                                 .bold()
@@ -132,6 +142,9 @@ struct StockDataView: View {
                                         portfolioRecord.change ?? 0 < 0 ? .red : .black
                                 )
                         }
+                        .padding(.bottom, 8)
+                        .font(.subheadline)
+
                         HStack {
                             Text("Market Value: ")
                                 .bold()
@@ -141,78 +154,88 @@ struct StockDataView: View {
                                         portfolioRecord.change ?? 0 < 0 ? .red : .black
                                 )
                         }
+                        .padding(.bottom, 8)
+                        .font(.subheadline)
+
                     }
-                    Button(action: {
-                        showingTradeSheet = true
-                    }) {
-                        Text("Trade")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.green)
-                            .cornerRadius(20)
+                    .frame(width: UIScreen.main.bounds.width*0.6)
+                    VStack {
+                        Button("Trade"){
+                            showingTradeSheet = true
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.green)
+                        .cornerRadius(20)
+                        .clipShape(Capsule())
+                        .frame(width: UIScreen.main.bounds.width*0.35)
+                        .sheet(isPresented: $showingTradeSheet) {
+                            let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
+                            TradeSheetView(
+                                numberOfShares: $numberOfShares,
+                                availableFunds: portfolioViewModel.walletMoney ,
+                                companyName:(viewModel.companyInfo?.name)!,
+                                pricePerShare: (viewModel.stockPriceDetails?.c)!,
+                                ownedShares: portfolioRecord!.quantity,
+                                companyDetails: viewModel.companyInfo!,
+                                showingTradeSheet: $showingTradeSheet,
+                                showSellSuccessSheet: $showSellSuccessSheet,
+                                showBuySuccessSheet: $showBuySuccessSheet,
+                                allSharesSold: $allSharesSold
+                            )
+                        }
+                        
+                        .sheet(isPresented: $showBuySuccessSheet) {
+                            SuccessBuySheet(sharesBought: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
+                        }
+                        
+                        .sheet(isPresented: $showSellSuccessSheet) {
+                            SuccessSellSheet(sharesSold: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet,
+                                             allSharesSold: $allSharesSold,
+                                             closeToHome: { val in
+                                self.shouldCloseToHome = val
+                            },
+                                             sellClosed: $sellClosed)
+                        }
                     }
-                    .sheet(isPresented: $showingTradeSheet) {
-                        let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
-                        TradeSheetView(
-                            numberOfShares: $numberOfShares,
-                            availableFunds: portfolioViewModel.walletMoney ,
-                            companyName:(viewModel.companyInfo?.name)!,
-                            pricePerShare: (viewModel.stockPriceDetails?.c)!,
-                            ownedShares: portfolioRecord!.quantity,
-                            companyDetails: viewModel.companyInfo!,
-                            showingTradeSheet: $showingTradeSheet,
-                            showSellSuccessSheet: $showSellSuccessSheet,
-                            showBuySuccessSheet: $showBuySuccessSheet,
-                            allSharesSold: $allSharesSold
-                        )
-                    }
-                    
-                    .sheet(isPresented: $showBuySuccessSheet) {
-                        SuccessBuySheet(sharesBought: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
-                    }
-                    
-                    .sheet(isPresented: $showSellSuccessSheet) {
-                        SuccessSellSheet(sharesSold: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet,
-                                         allSharesSold: $allSharesSold,
-                                         closeToHome: { val in
-                            self.shouldCloseToHome = val
-                        },
-                                         sellClosed: $sellClosed)
-                    }
+                    .frame(width: UIScreen.main.bounds.width*0.4)
                 }
             } else {
                 HStack{
                     VStack(alignment: .leading, spacing: 5) {
                         Text("Portfolio")
-                            .bold()
-                            .font(.title)
+                            .font(.system(size: 24))
+                            .padding(.bottom, 8)
                         Text("You have 0 shares of \(viewModel.companyInfo?.ticker ?? "").")
                         Text("Start trading!")
                     }
-                    Button(action: {
-                        showingTradeSheet = true
-                    }) {
-                        Text("Trade")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.green)
-                            .cornerRadius(20)
-                    }.sheet(isPresented: $showingTradeSheet) {
-                        TradeSheetView(
-                            numberOfShares: $numberOfShares,
-                            availableFunds: portfolioViewModel.walletMoney ,
-                            companyName:(viewModel.companyInfo?.name)!,
-                            pricePerShare: (viewModel.stockPriceDetails?.c)!,
-                            ownedShares: 0,
-                            companyDetails: viewModel.companyInfo!,
-                            showingTradeSheet: $showingTradeSheet,
-                            showSellSuccessSheet: $showSellSuccessSheet,
-                            showBuySuccessSheet: $showBuySuccessSheet,
-                            allSharesSold: $allSharesSold
-                        )
-                        
+                    .frame(width: UIScreen.main.bounds.width*0.6)
+                    VStack{
+                        Button("Trade"){
+                            showingTradeSheet = true
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.green)
+                        .cornerRadius(20)
+                        .clipShape(Capsule())
+                        .frame(width: UIScreen.main.bounds.width*0.35)
+                        .sheet(isPresented: $showingTradeSheet) {
+                            TradeSheetView(
+                                numberOfShares: $numberOfShares,
+                                availableFunds: portfolioViewModel.walletMoney ,
+                                companyName:(viewModel.companyInfo?.name)!,
+                                pricePerShare: (viewModel.stockPriceDetails?.c)!,
+                                ownedShares: 0,
+                                companyDetails: viewModel.companyInfo!,
+                                showingTradeSheet: $showingTradeSheet,
+                                showSellSuccessSheet: $showSellSuccessSheet,
+                                showBuySuccessSheet: $showBuySuccessSheet,
+                                allSharesSold: $allSharesSold
+                            )
+                        }
                     }
-                    
+                    .frame(width: UIScreen.main.bounds.width*0.4)
                 }
             }
         }
@@ -330,14 +353,18 @@ struct PriceChangeView: View {
     
     var body: some View {
         HStack(spacing: 2) {
-            Text("$\(priceDetails?.c ?? 0, specifier: "%.2f")").bold().font(.title)
+            Text("$\(priceDetails?.c ?? 0, specifier: "%.2f")")
+                .bold()
+                .font(.system(size: 28))
             if let change = priceDetails?.d, change != 0 {
                 Image(systemName: change > 0 ? "arrow.up.forward" : "arrow.down.forward")
                     .foregroundColor(change > 0 ? .green : .red)
                     .padding(.trailing, 6)
+                    .font(.system(size: 24))
             }
             Text("$\(priceDetails?.d ?? 0, specifier: "%.2f") (\(priceDetails?.dp ?? 0, specifier: "%.2f")%)")
                 .foregroundColor(priceDetails?.d == 0 ? .black : (priceDetails?.d ?? 0 > 0 ? .green : .red))
+                .font(.system(size: 24))
         }
         .font(.system(size: 16))
     }
@@ -371,8 +398,8 @@ struct StatsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Stats")
-                .bold()
-                .font(.title2)
+                .font(.system(size: 24))
+                .padding(.bottom, 8)
             HStack{
                 VStack{
                     HStack{
@@ -465,14 +492,14 @@ struct NewsSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("News")
-                .bold()
-                .font(.title2)
+                .font(.system(size: 24))
+                .padding(.bottom, 8)
             
                 // First news item
             if let firstItem = news.first {
                     // Render the first item as a larger view
                 NewsItemView(newsItem: firstItem, isLarge: true, showingDetailSheet: $showingDetailSheet, selectedNewsItem: $selectedNewsItem)
-                
+                Divider()
                     // Render remaining items
                 ForEach(news.dropFirst(), id: \.id) { newsItem in
                     NewsItemView(newsItem: newsItem, isLarge: false, showingDetailSheet: $showingDetailSheet, selectedNewsItem: $selectedNewsItem)
@@ -484,6 +511,7 @@ struct NewsSection: View {
                     .foregroundColor(.gray)
             }
         }
+        .padding()
     }
 }
 
@@ -529,6 +557,7 @@ struct LargeNewsItemView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .clipped()
+                .cornerRadius(8)
             HStack {
                 Text(newsItem.source!)
                     .font(.caption)
@@ -541,13 +570,13 @@ struct LargeNewsItemView: View {
                 .font(.headline)
                 .lineLimit(3)
         }
-        .padding()
+//        .padding()
         .background(Color.white)
-        .cornerRadius(8)
-        .shadow(radius: 4)
+//        .shadow(radius: 4)
         .onTapGesture {
             action()
         }
+        Divider()
     }
 }
 
@@ -571,17 +600,20 @@ struct SmallNewsItemView: View {
                     .font(.headline)
                     .lineLimit(2)
             }
-            .padding(.leading, 5)
+//            .padding(.leading, 5)
+            Spacer()
             KFImage(URL(string: newsItem.image!))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .clipped()
                 .cornerRadius(8)
+                .padding()
         }
         .background(Color.white)
         .cornerRadius(8)
-        .shadow(radius: 4)
+//        .padding()
+//        .shadow(radius: 4)
         .onTapGesture {
             action()
         }
