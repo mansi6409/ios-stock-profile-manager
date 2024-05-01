@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SuccessBuySheet: View {
-    @Binding var sharesBought: String
+    var numberOfShares: String
     @State var companyName: String
     @Binding var showBuySuccessSheet: Bool
     @Binding var showingTradeSheet: Bool
@@ -21,13 +21,19 @@ struct SuccessBuySheet: View {
             Text("Congratulations!")
                 .font(.largeTitle)
                 .bold()
-            Text("You have successfully bought \(sharesBought) shares of \(companyName).")
+            Text("You have successfully bought \(numberOfShares) \(Double(numberOfShares) == 1 ? "share" : "shares") of \(companyName).")
             Spacer()
             Button("Done") {
                 showBuySuccessSheet = false
                 showingTradeSheet = false
             }
-            .buttonStyle(FilledButtonStyle())
+            .padding(.horizontal, 150)
+            .padding(.vertical)
+            .foregroundColor(Color.green)
+            .background(Color.white)
+            .clipShape(Capsule())
+            .padding()
+//            .buttonStyle(FilledButtonStyle())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.green)
@@ -37,5 +43,5 @@ struct SuccessBuySheet: View {
 
 
 #Preview {
-    SuccessBuySheet(sharesBought: .constant(""), companyName: "", showBuySuccessSheet: .constant(true), showingTradeSheet: .constant(true))
+    SuccessBuySheet(numberOfShares: "", companyName: "", showBuySuccessSheet: .constant(true), showingTradeSheet: .constant(true))
 }

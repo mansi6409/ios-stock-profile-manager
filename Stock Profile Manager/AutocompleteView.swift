@@ -48,6 +48,7 @@ struct AutocompleteView: View {
             }
 //            .padding(./*vertical*/)
         }
+//        .navigationTitle("\(result.displaySymbol)")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -35,7 +35,7 @@ struct HomepageView: View {
                     
                 }
             }
-            .searchable(text: $searchString, prompt: "Search for stocks")
+            .searchable(text: $searchString, prompt: "Search")
             .onChange(of: searchString) { newValue in
                 autocompleteViewModel.queryChanged(to: newValue)
             }

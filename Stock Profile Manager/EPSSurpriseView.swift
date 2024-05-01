@@ -37,7 +37,7 @@ struct EPSSurpriseView: View {
       },
     
       xAxis: {
-        categories: \(chartsModel.datessurprise),
+        categories: \(chartsModel.label),
         accessibility: {
             rangeDescription: 'Range: last 4 months'
         },
@@ -61,8 +61,7 @@ struct EPSSurpriseView: View {
       },
     
       tooltip: {
-          headerFormat: '<b>{series.name}</b><br/>',
-          pointFormat: 'Earnings: {point.y}'
+          shared: true
       },
     
       plotOptions: {

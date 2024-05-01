@@ -38,6 +38,7 @@ class PortfolioService: ObservableObject {
     @Published private(set) var walletMoney: Double = 25000
     @Published private(set) var portfolioRecordsData: [PortfolioRecord] = []
     @Published private(set) var netWorth: Double = 25000
+    var tempWorth: Double = 0
     
         //    @Published private(set) var portfolioRecords: [PortfolioRecord] = []
     
@@ -204,6 +205,8 @@ class PortfolioService: ObservableObject {
                         //                    }
                     var updatedRecords: [PortfolioRecord] = []
                     
+//                    self.netWorth = 0
+                    
                     let dispatchGroup = DispatchGroup()
                     
                     value.forEach { record in
@@ -262,7 +265,8 @@ class PortfolioService: ObservableObject {
                     if let currentValueFloat = Float(currentValue) {
                         let totalValue = Float(portfolioRecord?.quantity ?? 0) * currentValueFloat
                         portfolioRecord?.totalValue = Double(totalValue)
-                        self.netWorth = self.walletMoney + Double(totalValue)
+                        self.tempWorth = self.tempWorth + Double(totalValue)
+                        self.netWorth = self.walletMoney + self.tempWorth
                         let averageCurrentCost = portfolioRecord!.cost / portfolioRecord!.quantity
                         let change = currentValueFloat - Float(averageCurrentCost)
                         portfolioRecord?.change = Double(change)
@@ -287,6 +291,7 @@ class PortfolioService: ObservableObject {
                 // Notify observers by re-assigning the array
                 //            self.portfolioRecordsData = self.portfolioRecordsData.map { $0 }
             completion(portfolioRecord!) // Assuming `portfolioRecord` is your updated record
+            self.tempWorth = 0
             
         }
     }

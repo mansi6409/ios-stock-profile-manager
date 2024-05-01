@@ -57,7 +57,7 @@ struct NewsDetailSheet: View {
                                     Image("twitterIcon")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: 35)
+                                        .frame(width: 55)
                                         .foregroundColor(.blue)
                                 }
                                 
@@ -65,7 +65,7 @@ struct NewsDetailSheet: View {
                                     Image("fbIcon")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: 35)
+                                        .frame(width: 55)
                                         .foregroundColor(.blue)
                                 }
                             }

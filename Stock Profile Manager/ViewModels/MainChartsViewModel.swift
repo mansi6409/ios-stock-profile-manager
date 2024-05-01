@@ -87,6 +87,7 @@ class ChartsModel {
     var estimate: [Double] = []
     var sentiments: [Sentiments] = []
     var sentimentsAggregate = SentimentsAggregate()
+    var label: [String] = []
     
     let currentDate = Date()
     
@@ -186,7 +187,7 @@ class ChartsModel {
                         result.strongSell
                     }
                     self.dates = self.trends.map { result in
-                        result.period
+                        String(result.period.prefix(7))
                     }
                     completion()
                 case .failure(let error):
@@ -211,6 +212,9 @@ class ChartsModel {
                     }
                     self.estimate = self.earning.map { result in
                         result.estimate
+                    }
+                    self.label = self.earning.map { (result) in
+                        "\(result.period)<br/>Surprise: \(result.surprise)"
                     }
                     completion()
                 case .failure(let error):

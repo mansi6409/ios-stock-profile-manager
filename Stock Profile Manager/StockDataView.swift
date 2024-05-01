@@ -24,15 +24,19 @@ struct StockDataView: View {
     var body: some View {
             //        NavigationView {
         ScrollView {
-            ZStack{
+            VStack{
                 if viewModel.isLoading {
                     VStack {
                         Spacer()
-                        Spacer()
+//                        Spacer()
                         ProgressView("Fetching Data...")
                             .frame(maxWidth: .infinity)
+                            .foregroundStyle(.secondary)
                         Spacer()
+//                            .frame(maxWidth: .infinity)
+//                        Spacer()
                     }
+                    .frame(minHeight: UIScreen.main.bounds.height*0.7)
                 }  else {
                     VStack(alignment: .leading){
                         stockInfoSection
@@ -45,8 +49,8 @@ struct StockDataView: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 15)
+//            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 10)
             .sheet(isPresented: $showingDetailSheet, onDismiss: clearSelection) {
                     //                if let selectedNewsItem = selectedNewsItem {
                 NewsDetailSheet(selectedNewsItem: self.$selectedNewsItem)
@@ -56,6 +60,8 @@ struct StockDataView: View {
                     //                }
             }
         }
+        .navigationBarTitle(symbol)
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             viewModel.searchString = symbol
             isFavorite = favoritesViewModel.favoritesEntries.contains { $0.symbol == symbol }
@@ -167,10 +173,12 @@ struct StockDataView: View {
                         .padding()
                         .foregroundColor(.white)
                         .background(Color.green)
-                        .cornerRadius(20)
-                        .clipShape(Capsule())
+                        .cornerRadius(25)
+//                        .clipShape(Capsule())
                         .frame(width: UIScreen.main.bounds.width*0.35)
+                        .buttonStyle(FilledButtonStyleTrade())
                         .sheet(isPresented: $showingTradeSheet) {
+//                            numberOfShares = ""
                             let portfolioRecord = portfolioViewModel.portfolioRecordsData.first(where: { $0.stocksymbol == symbol })
                             TradeSheetView(
                                 numberOfShares: $numberOfShares,
@@ -187,11 +195,11 @@ struct StockDataView: View {
                         }
                         
                         .sheet(isPresented: $showBuySuccessSheet) {
-                            SuccessBuySheet(sharesBought: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
+                            SuccessBuySheet(numberOfShares: numberOfShares, companyName:(viewModel.companyInfo?.ticker)! , showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
                         }
                         
                         .sheet(isPresented: $showSellSuccessSheet) {
-                            SuccessSellSheet(sharesSold: $numberOfShares, companyName:(viewModel.companyInfo?.name)! , showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet,
+                            SuccessSellSheet(numberOfShares: numberOfShares, companyName:(viewModel.companyInfo?.ticker)! , showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet,
                                              allSharesSold: $allSharesSold,
                                              closeToHome: { val in
                                 self.shouldCloseToHome = val
@@ -218,10 +226,11 @@ struct StockDataView: View {
                         .padding()
                         .foregroundColor(.white)
                         .background(Color.green)
-                        .cornerRadius(20)
-                        .clipShape(Capsule())
+                        .cornerRadius(25)
                         .frame(width: UIScreen.main.bounds.width*0.35)
+                        .buttonStyle(FilledButtonStyleTrade())
                         .sheet(isPresented: $showingTradeSheet) {
+//                            numberOfShares = ""
                             TradeSheetView(
                                 numberOfShares: $numberOfShares,
                                 availableFunds: portfolioViewModel.walletMoney ,
@@ -312,7 +321,7 @@ struct StockDataView: View {
     }
     
     private var companyInfoView: some View {
-        CompanyInfoView(company: viewModel.companyInfo)
+        CompanyInfoView(company: viewModel.companyInfo, symbol: symbol)
     }
     
     private var newsSection: some View {
@@ -358,18 +367,32 @@ struct PriceChangeView: View {
         HStack(spacing: 2) {
             Text("$\(priceDetails?.c ?? 0, specifier: "%.2f")")
                 .bold()
-                .font(.system(size: 28))
+                .font(.system(size: 26))
             if let change = priceDetails?.d, change != 0 {
                 Image(systemName: change > 0 ? "arrow.up.forward" : "arrow.down.forward")
                     .foregroundColor(change > 0 ? .green : .red)
                     .padding(.trailing, 6)
-                    .font(.system(size: 24))
+                    .font(.system(size: 22))
             }
             Text("$\(priceDetails?.d ?? 0, specifier: "%.2f") (\(priceDetails?.dp ?? 0, specifier: "%.2f")%)")
                 .foregroundColor(priceDetails?.d == 0 ? .black : (priceDetails?.d ?? 0 > 0 ? .green : .red))
                 .font(.system(size: 24))
         }
         .font(.system(size: 16))
+    }
+}
+
+struct FilledButtonStyleTrade: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+//            .padding()
+            .background(Color.green)
+            .cornerRadius(25)
+            //            .scaleEffect(configuration.isPressed ? 0.96 : 1)
+            .frame(width: UIScreen.main.bounds.width * 0.20)
+        
+            //            .frame(maxWidth: .infinity)
     }
 }
 
@@ -421,6 +444,7 @@ struct StatsView: View {
 
 struct CompanyInfoView: View {
     let company: Details?
+    let symbol: String
     @Environment(DetailsViewModel.self) var viewModel
     var body: some View {
         VStack(alignment: .leading) {
@@ -465,6 +489,8 @@ struct CompanyInfoView: View {
                         }
                     }
                 }
+                .navigationBarTitle("\(symbol)")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
         .padding()

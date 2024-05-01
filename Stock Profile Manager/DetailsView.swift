@@ -64,19 +64,6 @@ struct DetailsView: View {
                 ForEach(portfolioViewModel.portfolioRecordsData.indices, id: \.self) { index in
                     NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol)
                         .environment(viewModel)
-//                        .navigationBarItems(trailing: Button(action: {
-//                            isFavorite.toggle()
-//                            if isFavorite {
-//                                favoritesViewModel.addToFavorites(symbol: favoritesViewModel.favoritesEntries[index].symbol)
-//                            } else {
-//                                favoritesViewModel.removeFromFavorites(symbol: favoritesViewModel.favoritesEntries[index].symbol)
-//                            }
-//                                // Call your backend function depending on the isFavorite state
-//                        }) {
-//                            Image(systemName: isFavorite ? "plus.circle.fill" : "plus.circle")
-//                                .imageScale(.large)
-//                                .foregroundColor(.blue)
-//                        })
                     ) {
                         
                         HStack {
@@ -95,12 +82,12 @@ struct DetailsView: View {
                                     .font(.system(size: 16))
                                 HStack(spacing: 2) {
                                     if let change = portfolioViewModel.portfolioRecordsData[index].change, change != 0 {
-                                        Image(systemName: change > 0 ? "arrow.up.forward" : "arrow.down.forward")
-                                            .foregroundColor(change > 0 ? .green : .red)
+                                        Image(systemName: (change > 0 ? "arrow.up.forward" : (change < 0 ? "arrow.down.forward" : "minus")))
+                                            .foregroundColor(change > 0 ? .green : (change < 0 ? .red : .black))
                                             .padding(.trailing, 6)
                                     }
                                     Text("$\(portfolioViewModel.portfolioRecordsData[index].change ?? 0, specifier: "%.2f") (\(portfolioViewModel.portfolioRecordsData[index].changePercentage ?? 0, specifier: "%.2f")%)")
-                                        .foregroundColor(portfolioViewModel.portfolioRecordsData[index].change == 0 ? .black : (portfolioViewModel.portfolioRecordsData[index].change ?? 0 > 0 ? .green : .red))
+                                        .foregroundColor(portfolioViewModel.portfolioRecordsData[index].change ?? 0 > 0 ? .green : (portfolioViewModel.portfolioRecordsData[index].change ?? 0 < 0 ? .red : .black))
                                 }
                                 .font(.system(size: 16))}
                         }

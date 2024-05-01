@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SuccessSellSheet: View {
-    @Binding var sharesSold: String
+    var numberOfShares: String
     @State var companyName: String
     @Binding var showSellSuccessSheet: Bool
     @Binding var showingTradeSheet: Bool
@@ -24,7 +24,7 @@ struct SuccessSellSheet: View {
             Text("Congratulations!")
                 .font(.largeTitle)
                 .bold()
-            Text("You have successfully sold \(sharesSold) shares of \(companyName).")
+            Text("You have successfully sold \(numberOfShares) \(Double(numberOfShares) == 1 ? "share" : "shares") of \(companyName).")
             Spacer()
             Button("Done") {
                 print("Done button tapped")
@@ -37,12 +37,17 @@ struct SuccessSellSheet: View {
                     closeToHome(true)
                 } else {
                     sellClosed = false
-                    
                     closeToHome(false)
                 }
 //                closeToHome()
             }
-            .buttonStyle(FilledButtonStyle())
+            .padding(.horizontal, 150)
+            .padding(.vertical)
+            .foregroundColor(Color.green)
+            .background(Color.white)
+            .clipShape(Capsule())
+            .padding()
+//            .buttonStyle(FilledButtonStyle())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.green)
@@ -52,6 +57,6 @@ struct SuccessSellSheet: View {
 
 
 #Preview {
-    SuccessSellSheet(sharesSold: .constant(""), companyName: "", showSellSuccessSheet: .constant(true), showingTradeSheet: .constant(true),allSharesSold: .constant(false), closeToHome: {val in}, sellClosed: .constant(false))
+    SuccessSellSheet(numberOfShares: "", companyName: "", showSellSuccessSheet: .constant(true), showingTradeSheet: .constant(true),allSharesSold: .constant(false), closeToHome: {val in}, sellClosed: .constant(false))
 }
 

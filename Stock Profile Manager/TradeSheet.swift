@@ -108,13 +108,13 @@ struct TradeSheetView: View {
                     }) {
                         Image(systemName: "xmark")
                             .imageScale(.large)
-                            .padding()
+                            .font(.subheadline)
                     }
                     .foregroundColor(.secondary)
                 }
                 Text("Trade \(companyName) shares")
-                    .font(.system(size: 20))
-                    //                    .bold()
+                    .font(.title3)
+                    .bold()
                 Spacer()
                 HStack {
                         // Number of Shares Text Field
@@ -140,6 +140,7 @@ struct TradeSheetView: View {
                             .padding(.top, 4)
                             .padding(.trailing, 4)
                     }
+                    .frame(width: UIScreen.main.bounds.width * 0.5)
                 }
                 Spacer()
                 Text("$\(availableFunds, specifier: "%.2f") available to buy AAPL")
@@ -177,39 +178,12 @@ struct TradeSheetView: View {
             .padding()
             .navigationBarHidden(true)
             .toast(isPresented: $showErrorToast, message: toastMessage)
-//            .sheet(isPresented: $showBuySuccessSheet) {
-//                SuccessBuySheet(sharesBought: $numberOfShares, companyName: companyName, showBuySuccessSheet: $showBuySuccessSheet, showingTradeSheet: $showingTradeSheet)
-//            }
-//            .sheet(isPresented: $showSellSuccessSheet){
-//                SuccessSellSheet(sharesSold: $numberOfShares, companyName: companyName, showSellSuccessSheet: $showSellSuccessSheet, showingTradeSheet: $showingTradeSheet)
-//            }
-                //            .padding(.bottom, keyboardHeight) // Use the keyboard height to adjust padding
-                //            .onAppear {
-                //                NotificationCenter.default.addObserver(
-                //                    forName: UIResponder.keyboardWillShowNotification,
-                //                    object: nil,
-                //                    queue: .main
-                //                ) { notification in
-                //                    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                //                        keyboardHeight = keyboardSize.height
-                //                    }
-                //                }
-                //
-                //                NotificationCenter.default.addObserver(
-                //                    forName: UIResponder.keyboardWillHideNotification,
-                //                    object: nil,
-                //                    queue: .main
-                //                ) { _ in
-                //                    keyboardHeight = 0
-                //                }
-                //            }
-                //            .onDisappear {
-                //                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-                //                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-                //            }
         }
         .onDisappear {
                 // Reset the number of shares when the view disappears
+//            numberOfShares = ""
+        }
+        .onAppear() {
             numberOfShares = ""
         }
         .padding()
