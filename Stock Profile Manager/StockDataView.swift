@@ -98,6 +98,7 @@ struct StockDataView: View {
                 PriceChangeView(priceDetails: viewModel.stockPriceDetails)
             }
         }
+        .padding()
     }
     
     private var portfolioInfoSection: some View {
@@ -288,6 +289,7 @@ struct StockDataView: View {
                 }
             }
         }
+        .padding()
     }
     
     private var statsView: some View {
@@ -297,8 +299,8 @@ struct StockDataView: View {
     private var insightsView: some View {
             VStack(alignment: .leading) {
                 Text("Insights")
-                    .bold()
-                    .font(.title2)
+                    .font(.system(size: 24))
+                    .padding(.bottom, 8)
                 InsightsTableView(symbol: symbol, companyName: (viewModel.companyInfo?.name ?? ""))
 //                    .frame(height: 400)
                 RecommendationTrendsView(ticker: symbol)
@@ -306,6 +308,7 @@ struct StockDataView: View {
                 EPSSurpriseView(ticker: symbol)
                     .frame(height: 400)
             }
+            .padding()
     }
     
     private var companyInfoView: some View {
@@ -370,28 +373,6 @@ struct PriceChangeView: View {
     }
 }
 
-struct PortfolioInfoView: View {
-    let portfolioRecord: PortfolioRecord
-    @Binding var showingTradeSheet: Bool
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Portfolio Details:")
-                .font(.headline)
-            Text("Shares Owned: \(portfolioRecord.quantity, specifier: "%.0f")")
-            Text("Average Cost Per Share: $\(portfolioRecord.cost / portfolioRecord.quantity, specifier: "%.2f")")
-            Text("Total Cost: $\(portfolioRecord.cost, specifier: "%.2f")")
-            Button("Trade") {
-                showingTradeSheet = true
-            }
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.green)
-            .cornerRadius(20)
-        }
-    }
-}
-
 struct StatsView: View {
     let stockDetails: StockPriceDetails?
     
@@ -414,6 +395,9 @@ struct StatsView: View {
                     }
                     
                 }
+                .padding(.bottom, 14)
+                .font(.subheadline)
+                .padding(.trailing, 7)
                 VStack{
                     HStack{
                         Text("Open Price: ")
@@ -427,8 +411,11 @@ struct StatsView: View {
                         Text("$\(stockDetails?.c ?? 0, specifier: "%.2f")")
                     }
                 }
+                .font(.subheadline)
+                .padding(.bottom, 14)
             }
         }
+        .padding()
     }
 }
 
@@ -438,8 +425,8 @@ struct CompanyInfoView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("About")
-                .bold()
-                .font(.title2)
+                .font(.system(size: 24))
+                .padding(.bottom, 8)
             
             HStack {
                 Text("IPO Start Date: ")
@@ -480,6 +467,7 @@ struct CompanyInfoView: View {
                 }
             }
         }
+        .padding()
     }
 }
 

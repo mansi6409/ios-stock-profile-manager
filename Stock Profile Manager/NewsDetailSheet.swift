@@ -17,12 +17,6 @@ struct NewsDetailSheet: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                        //                    if let newsItem = viewModel.news?.first,
-                        //                       let source = newsItem.source,
-                        //                       let dateTime = newsItem.datetime,
-                        //                       let headline = newsItem.headline,
-                        //                       let summary = newsItem.summary,
-                        //                       let urlString = newsItem.url,
                     if let source = self.selectedNewsItem?.source,
                        let dateTime = self.selectedNewsItem?.datetime,
                        let headline = self.selectedNewsItem?.headline,
@@ -33,44 +27,50 @@ struct NewsDetailSheet: View {
                         
                         Text(source)
                             .font(.title)
+                            .bold()
+                            .padding(0)
                         
                         Text(dateTime, formatter: dateFormatter)
                             .font(.subheadline)
                             .foregroundColor(.gray)
+                            .padding(0)
                         
                         Divider()
-                        
-                        Text(headline)
-                            .font(.title)
-                            .bold()
-                        
-                        Text(summary)
-                        
-                        HStack {
-                            Text("For more details click")
-                                .foregroundColor(.gray)
-                            Link("here", destination: url) // Sequential link
-                                .foregroundColor(.blue) // Optionally style it
-                        }
-                        
-                        HStack(spacing: 12) {
-                            Link(destination: URL(string: "https://twitter.com/intent/tweet?text=\(headline)&url=\(urlString)")!) {
-                                Image("twitterIcon")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 35)
-                                    .foregroundColor(.blue)
-                            }
+                        VStack(alignment: .leading){
+                            Text(headline)
+                                .font(.headline)
+                                .bold()
                             
-                            Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=\(urlString)")!) {
-                                Image("fbIcon")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 35)
-                                    .foregroundColor(.blue)
+                            Text(summary)
+                                .font(.subheadline)
+                            
+                            HStack {
+                                Text("For more details click")
+                                    .foregroundColor(.gray)
+                                Link("here", destination: url) // Sequential link
+                                    .foregroundColor(.blue) // Optionally style it
                             }
+                            .font(.footnote)
+                            
+                            HStack(spacing: 12) {
+                                Link(destination: URL(string: "https://twitter.com/intent/tweet?text=\(headline)&url=\(urlString)")!) {
+                                    Image("twitterIcon")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 35)
+                                        .foregroundColor(.blue)
+                                }
+                                
+                                Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=\(urlString)")!) {
+                                    Image("fbIcon")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 35)
+                                        .foregroundColor(.blue)
+                                }
+                            }
+                            .padding(.top, 10)
                         }
-                        .padding(.top, 10)
                         
                     } else {
                         Text("Invalid News Data")
@@ -85,6 +85,8 @@ struct NewsDetailSheet: View {
                 }) {
                     Image(systemName: "xmark") // Use a cross icon
                         .foregroundColor(.gray) // Style it to be grey
+                        .font(.subheadline)
+                        .bold()
                 })
                 
             }
