@@ -76,8 +76,24 @@ struct StockDataView: View {
                     .bold()
                     .foregroundColor(.primary)
                     //                Spacer()
-                Text(viewModel.companyInfo?.name ?? "")
-                    .foregroundColor(.gray)
+                HStack {
+                    Text(viewModel.companyInfo?.name ?? "")
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                    
+                    if let logoURLString = viewModel.companyInfo?.logo, let logoURL = URL(string: logoURLString) {
+                            // Assuming you are using Kingfisher to handle URL-based images
+                        KFImage(logoURL)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)  // Set appropriate size for the logo
+                            .clipped()
+                            .cornerRadius(10)  // Round the corners with a radius of 10
+                            .padding(.trailing, 20)
+                    }
+                    
+                }
                     //                Spacer()
                 PriceChangeView(priceDetails: viewModel.stockPriceDetails)
             }
