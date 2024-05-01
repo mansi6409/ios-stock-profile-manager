@@ -30,14 +30,23 @@ struct AutocompleteView: View {
         List(viewModel.searchResults, id: \.displaySymbol) { result in
             searchResultRow(for: result)
         }
-        .listStyle(PlainListStyle())
+//        .padding()
+//        .listStyle(PlainListStyle())
         .background(Color(.systemGroupedBackground))
     }
     
     private func searchResultRow(for result: AutocompleteData) -> some View {
         NavigationLink(destination: StockDataView( symbol: result.displaySymbol)            .environment(detailsViewModel)
         ) {
-            Text("\(result.displaySymbol) - \(result.description)")
+            VStack(alignment: .leading) {
+                Text("\(result.displaySymbol)")
+                    .font(.system(size: 20))
+                    .bold()
+                Text("\(result.description)")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 18))
+            }
+//            .padding(./*vertical*/)
         }
         .navigationBarTitleDisplayMode(.inline)
     }

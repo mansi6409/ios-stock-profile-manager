@@ -45,21 +45,22 @@ struct DetailsView: View {
                     VStack(alignment: .leading) {
                         Text("Net Worth")
 //                            .font(.headline)
-                            .font(.system(size: 18))
+                            .font(.system(size: 21))
                         Text("$\(portfolioViewModel.netWorth, specifier: "%.2f")")
                             .bold()
-                            .font(.system(size: 18))
+                            .font(.system(size: 20))
                     }
                     Spacer()
                     VStack(alignment: .leading) {
                         Text("Cash Balance")
-                            .font(.system(size: 18))
+                            .font(.system(size: 21))
                         Text("$\(portfolioViewModel.walletMoney, specifier: "%.2f")")
                           .bold()
-                            .font(.system(size: 18))
+                            .font(.system(size: 20))
                     }
                 }
-                .padding()
+                .padding(.bottom, 5)
+                .padding(.top, 4)
                 ForEach(portfolioViewModel.portfolioRecordsData.indices, id: \.self) { index in
                     NavigationLink(destination: StockDataView(symbol: portfolioViewModel.portfolioRecordsData[index].stocksymbol)
                         .environment(viewModel)

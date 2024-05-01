@@ -30,6 +30,7 @@ struct HomepageView: View {
                 } else {
                     AutocompleteView(searchText: $searchString, viewModel: autocompleteViewModel)
                         .environment(detailsViewModel)
+                        .navigationTitle("Stocks")
                         .navigationBarTitleDisplayMode(.inline)
                     
                 }
