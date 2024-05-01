@@ -50,11 +50,13 @@ struct TradeSheetView: View {
                        let shares = Double(numberOfShares){
                         if (ownedShares == 0){
                             portfolioViewModel.addPortfolioRecord(symbol: ticker, quantity: shares, price: calculatedTotal)
+                            portfolioViewModel.updateWalletMoney(amount: -calculatedTotal)
                             showingTradeSheet = false
                             showBuySuccessSheet = true
                                 //                            portfolioViewModel.refreshData()
                         } else {
                             portfolioViewModel.updatePortfolioRecord(symbol: ticker, quantity: (ownedShares + shares), price: calculatedTotal)
+                            portfolioViewModel.updateWalletMoney(amount: -calculatedTotal)
                             showingTradeSheet = false
                             showBuySuccessSheet = true
                                 //                            portfolioViewModel.refreshData()
@@ -69,11 +71,13 @@ struct TradeSheetView: View {
                        let shares = Double(numberOfShares){
                         if (Double(ownedShares) == Double(numberOfShares)){
                             portfolioViewModel.removePortfolioRecord(symbol: ticker)
+                            portfolioViewModel.updateWalletMoney(amount: calculatedTotal)
                             showingTradeSheet = false
                             showSellSuccessSheet = true
                             allSharesSold = true
                         } else {
                             portfolioViewModel.updatePortfolioRecord(symbol: ticker, quantity: (ownedShares - shares), price: calculatedTotal)
+                            portfolioViewModel.updateWalletMoney(amount: -calculatedTotal)
                             showingTradeSheet = false
                             showSellSuccessSheet = true
                             allSharesSold = false

@@ -18,6 +18,9 @@ struct StockDataView: View {
     @State private var isFavorite: Bool = false
     @State private var showHourly = true
     
+    @State private var showToast: Bool = false
+    @State private var toastMessage: String = ""
+    
     var body: some View {
             //        NavigationView {
         ScrollView {
@@ -61,6 +64,7 @@ struct StockDataView: View {
             isFavorite = favoritesViewModel.favoritesEntries.contains { $0.symbol == symbol }
         }
         .navigationBarItems(trailing: favoriteButton)
+        .toast(isPresented: $showToast, message: toastMessage)
     }
         //    }
     
@@ -285,8 +289,18 @@ struct StockDataView: View {
         isFavorite.toggle()
         if isFavorite {
             favoritesViewModel.addToFavorites(symbol: symbol)
+            showToast(message: "Adding \(symbol) to Favorites")
         } else {
             favoritesViewModel.removeFromFavorites(symbol: symbol)
+            showToast(message: "Removing \(symbol) from Favorites")
+        }
+    }
+    
+    private func showToast(message: String) {
+        toastMessage = message
+        showToast = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            showToast = false
         }
     }
     
@@ -374,77 +388,6 @@ struct StatsView: View {
         }
     }
 }
-
-//struct InsightsView: View {
-//    let symbol: String
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            Text("Insights")
-//                .bold()
-//                .font(.title2)
-//            InsightsTableView(symbol: symbol, companyName: viewModel.companyInfo?.name)
-//                .frame(height: 400)
-//            RecommendationTrendsView(ticker: symbol)
-//                .frame(height: 400)
-//            EPSSurpriseView(ticker: symbol)
-//                .frame(height: 400)
-//        }
-//    }
-//}
-
-//struct ChartsView: View {
-//    let stockDetails: StockPriceDetails?
-//    let symbol: String
-//    let showHourly: Bool
-//    var body: some View {
-//        HStack {
-//            VStack {
-//                HStack {
-//                    if (showHourly) {
-//                        let color = (stockDetails!.d! > 0 ? "green" : (stockDetails!.d! < 0 ? "red" : "gray"))
-//                        HourlyView(ticker: symbol, color: color)
-//                            .frame(height: 410)
-//                    }
-//                    else {
-//                        HistoricalChartView(ticker: symbol)
-//                            .frame(height: 410)
-//                    }
-//                }
-//                Divider()
-//                HStack {
-//                    Spacer()
-//                    Button(action: {
-//                        showHourly = true
-//                    }) {
-//                        VStack {
-//                            Image(systemName: "chart.xyaxis.line")
-//                                .font(.title2)
-//                            Text ("Hourly")
-//                                .font(.caption2)
-//                        }
-//                    }
-//                    .foregroundColor(showHourly ? .blue : .gray)
-//                    .padding()
-//                    Spacer()
-//                    Spacer()
-//                    Button(action: {
-//                        showHourly = false
-//                    }) {
-//                        VStack {
-//                            Image(systemName: "clock.fill")
-//                                .font(.title2)
-//                            Text("Historical")
-//                                .font(.caption2)
-//                        }
-//                    }
-//                    .foregroundColor(showHourly ? .gray : .blue)
-//                    .padding()
-//                    Spacer()
-//                }
-//            }
-//        }
-//    }
-//}
 
 struct CompanyInfoView: View {
     let company: Details?
@@ -628,4 +571,33 @@ struct SmallNewsItemView: View {
         }
     }
 }
+
+//struct ToastViewDetails: ViewModifier {
+//    @Binding var isPresented: Bool
+//    let message: String
+//    
+//    func body(content: Content) -> some View {
+//        ZStack {
+//            content
+//            if isPresented {
+//                Text(message)
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .background(Color.gray)
+//                    .cornerRadius(30)
+//                    .transition(.slide)
+//                    // Style your toast here
+//                    .onAppear {
+//                            // Automatically dismiss the toast after 2 seconds
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                            isPresented = false
+//                        }
+//                    }
+//                    .zIndex(1)
+//                    .padding(.top, 640)
+//                    //                    .frame(width: 500)
+//            }
+//        }
+//    }
+//}
 

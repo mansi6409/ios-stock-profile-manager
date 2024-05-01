@@ -71,11 +71,14 @@ class PortfolioService: ObservableObject {
         var updatedAmount = (walletMoney + amount).rounded(toPlaces: 2)
         let url = "\(baseUrl)/setwalletmoney?updatedAmount=\(updatedAmount)"
         
-        AF.request(url).validate().responseDecodable(of: WalletMoney.self)  { response in
+        AF.request(url).validate().responseDecodable(of: [WalletMoney].self)  { response in
             switch response.result {
                 case .success(let value):
-                    let json = JSON(value)
-                    print("JSON: \(json)")
+                    if let firstWallet = value.first {
+                        DispatchQueue.main.async {
+                            self.walletMoney = firstWallet.walletmoney
+                        }
+                    }
                 case .failure(let error):
                     print(error)
             }
