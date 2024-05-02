@@ -175,7 +175,7 @@ struct StockDataView: View {
                         .background(Color.green)
                         .cornerRadius(25)
 //                        .clipShape(Capsule())
-                        .frame(width: UIScreen.main.bounds.width*0.35)
+                        .frame(width: UIScreen.main.bounds.width*0.40)
                         .buttonStyle(FilledButtonStyleTrade())
                         .sheet(isPresented: $showingTradeSheet) {
 //                            numberOfShares = ""
@@ -216,7 +216,9 @@ struct StockDataView: View {
                             .font(.system(size: 24))
                             .padding(.bottom, 8)
                         Text("You have 0 shares of \(viewModel.companyInfo?.ticker ?? "").")
+                            .font(.subheadline)
                         Text("Start trading!")
+                            .font(.subheadline)
                     }
                     .frame(width: UIScreen.main.bounds.width*0.6)
                     VStack{
@@ -311,11 +313,14 @@ struct StockDataView: View {
                     .font(.system(size: 24))
                     .padding(.bottom, 8)
                 InsightsTableView(symbol: symbol, companyName: (viewModel.companyInfo?.name ?? ""))
+                    .padding(0)
 //                    .frame(height: 400)
                 RecommendationTrendsView(ticker: symbol)
                     .frame(height: 400)
+                    .padding(0)
                 EPSSurpriseView(ticker: symbol)
                     .frame(height: 400)
+                    .padding(0)
             }
             .padding()
     }
@@ -371,12 +376,13 @@ struct PriceChangeView: View {
             if let change = priceDetails?.d, change != 0 {
                 Image(systemName: change > 0 ? "arrow.up.forward" : "arrow.down.forward")
                     .foregroundColor(change > 0 ? .green : .red)
-                    .padding(.trailing, 6)
+                    .padding(.trailing, 2)
                     .font(.system(size: 22))
+                    .padding(.leading, 8)
             }
             Text("$\(priceDetails?.d ?? 0, specifier: "%.2f") (\(priceDetails?.dp ?? 0, specifier: "%.2f")%)")
                 .foregroundColor(priceDetails?.d == 0 ? .black : (priceDetails?.d ?? 0 > 0 ? .green : .red))
-                .font(.system(size: 24))
+                .font(.system(size: 22))
         }
         .font(.system(size: 16))
     }
@@ -390,7 +396,7 @@ struct FilledButtonStyleTrade: ButtonStyle {
             .background(Color.green)
             .cornerRadius(25)
             //            .scaleEffect(configuration.isPressed ? 0.96 : 1)
-            .frame(width: UIScreen.main.bounds.width * 0.20)
+            .frame(width: UIScreen.main.bounds.width * 0.25)
         
             //            .frame(maxWidth: .infinity)
     }
@@ -458,22 +464,29 @@ struct CompanyInfoView: View {
                     VStack(alignment: .leading) {
                         Text("IPO Start Date: ")
                             .bold()
+                            .padding(.bottom, 5)
                         
                         Text("Industry: ")
                             .bold()
+                            .padding(.bottom, 5)
                         Text("Webpage: ")
                             .bold()
+                            .padding(.bottom, 5)
                         Text("Company Peers: ")
                             .bold()
+                            .padding(.bottom, 5)
                     }
                         //                .padding(.horizontal)
                     
                     VStack(alignment: .leading)  {
                         
                         Text(viewModel.companyInfo?.ipo ?? "N/A")
+                            .padding(.bottom, 5)
                         Text(viewModel.companyInfo?.finnhubIndustry ?? "N/A")
+                            .padding(.bottom, 5)
                         if let urlString = viewModel.companyInfo?.weburl, let url = URL(string: urlString) {
                             Link("\(viewModel.companyInfo?.weburl ?? "")", destination: url)
+                                .padding(.bottom, 5)
                         } else {
                             Text("N/A")
                         }
@@ -492,6 +505,7 @@ struct CompanyInfoView: View {
                         }
                         .navigationBarTitle("\(symbol)")
                         .navigationBarTitleDisplayMode(.inline)
+                        .padding(.bottom, 5)
                         
                         
                     }
@@ -645,7 +659,7 @@ struct SmallNewsItemView: View {
 //struct ToastViewDetails: ViewModifier {
 //    @Binding var isPresented: Bool
 //    let message: String
-//    
+//
 //    func body(content: Content) -> some View {
 //        ZStack {
 //            content

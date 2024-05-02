@@ -19,12 +19,15 @@ struct SuccessSellSheet: View {
 
         
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(alignment: .center, spacing: 20) {
             Spacer()
             Text("Congratulations!")
                 .font(.largeTitle)
                 .bold()
             Text("You have successfully sold \(numberOfShares) \(Double(numberOfShares) == 1 ? "share" : "shares") of \(companyName).")
+                .font(.title3)
+                .multilineTextAlignment(.center) // Center-align the text within its bounds
+                .frame(maxWidth: .infinity) 
             Spacer()
             Button("Done") {
                 print("Done button tapped")

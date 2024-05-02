@@ -46,7 +46,7 @@ struct DetailsView: View {
                         Text("Net Worth")
 //                            .font(.headline)
                             .font(.system(size: 21))
-                        Text("$\(portfolioViewModel.netWorth, specifier: "%.2f")")
+                        Text(String(format: "$%.2f", portfolioViewModel.netWorth))
                             .bold()
                             .font(.system(size: 20))
                     }
@@ -54,7 +54,7 @@ struct DetailsView: View {
                     VStack(alignment: .leading) {
                         Text("Cash Balance")
                             .font(.system(size: 21))
-                        Text("$\(portfolioViewModel.walletMoney, specifier: "%.2f")")
+                        Text(String(format: "$%.2f", portfolioViewModel.walletMoney))
                           .bold()
                             .font(.system(size: 20))
                     }
@@ -71,7 +71,7 @@ struct DetailsView: View {
                                 Text("\(portfolioViewModel.portfolioRecordsData[index].stocksymbol)")
                                     .bold()
                                     .font(.system(size: 20))
-                                Text("\(Int(portfolioViewModel.portfolioRecordsData[index].quantity)) Shares")
+                                Text("\(Int(portfolioViewModel.portfolioRecordsData[index].quantity)) shares")
                                     .foregroundColor(.gray)
                                     .font(.system(size: 14))
                             }
@@ -86,7 +86,7 @@ struct DetailsView: View {
                                             .foregroundColor(change > 0 ? .green : (change < 0 ? .red : .black))
                                             .padding(.trailing, 6)
                                     }
-                                    Text("$\(portfolioViewModel.portfolioRecordsData[index].change ?? 0, specifier: "%.2f") (\(portfolioViewModel.portfolioRecordsData[index].changePercentage ?? 0, specifier: "%.2f")%)")
+                                    Text("$\((portfolioViewModel.portfolioRecordsData[index].change ?? 0 * portfolioViewModel.portfolioRecordsData[index].quantity ?? 0), specifier: "%.2f") (\(portfolioViewModel.portfolioRecordsData[index].changePercentage ?? 0, specifier: "%.2f")%)")
                                         .foregroundColor(portfolioViewModel.portfolioRecordsData[index].change ?? 0 > 0 ? .green : (portfolioViewModel.portfolioRecordsData[index].change ?? 0 < 0 ? .red : .black))
                                 }
                                 .font(.system(size: 16))}
@@ -165,6 +165,7 @@ struct DetailsView: View {
                             .frame( width: 350, alignment: .center)
                             .background(Color.white)
                             .cornerRadius(9)
+                            .font(.subheadline)
                         Spacer()
                     }
                     .padding()
